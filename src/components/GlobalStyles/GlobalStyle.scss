@@ -1,1 +1,33 @@
 @import 'normalize.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: #081b27;
+    a {
+        display: block;
+        text-decoration: none;
+    }
+
+    input,
+    button {
+        outline: none;
+    }
+}
+
+.flex-between {
+    @apply flex items-center justify-between;
+}
+.flex-center {
+    @apply flex items-center justify-center;
+}
+
+.header {
+    @apply sticky top-0 left-0 right-0;
+}
+
+.navbar-link {
+    @apply text-white text-xl font-bold;
+}

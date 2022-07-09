@@ -15,6 +15,11 @@ body {
     button {
         outline: none;
     }
+
+    :root {
+        --width-input: 140px;
+        --width-input-sidebar: 100px;
+    }
 }
 
 .flex-between {

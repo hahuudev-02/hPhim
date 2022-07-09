@@ -1,7 +1,8 @@
 import Home from '~/pages/Home';
 import NewMovies from '~/pages/NewMovies';
 import AnimeMovies from '~/pages/AnimeMovies';
-import MovieDeitails from '~/pages/MoiveDeitail';
+import MovieDeitails from '~/pages/MovieDeitails';
+import WatchMovies from '~/pages/WatchMovies';
 import NotFound from '~/pages/NotFound';
 
 export const publicRouter = [
@@ -9,6 +10,7 @@ export const publicRouter = [
     { path: '/the-loai/phim-moi', component: NewMovies },
     { path: '/the-loai/phim-le', component: NewMovies },
     { path: '/the-loai/phim-hoat-hinh', component: AnimeMovies },
-    { path: '/phim', component: MovieDeitails },
+    { path: '/phim/:slug', component: MovieDeitails, searchLayout: false },
+    { path: '/p/:slug', component: WatchMovies, searchLayout: false },
     { path: '*', component: NotFound },
 ];

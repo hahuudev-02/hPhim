@@ -1,8 +1,14 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRouter } from '~/routers';
 import DefaultLayout from '~/layouts/DefaultLayout';
 
 function App() {
+
+    // useEffect(() => {
+    //     document.title = 'hii'
+    // }, [])
+
     return (
         <Router>
             <Routes>
@@ -14,7 +20,7 @@ function App() {
                             key={rotuer.path}
                             path={rotuer.path}
                             element={
-                                <Layout path={rotuer.path}>
+                                <Layout searchLayout={rotuer.searchLayout}>
                                     <Page />
                                 </Layout>
                             }

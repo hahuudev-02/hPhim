@@ -4,7 +4,30 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        border-radius: 20px;
+        background: rgb(224, 221, 11);
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+}
+
 body {
+    overflow-x: hidden;
     background-color: #081b27;
     a {
         display: block;
@@ -14,6 +37,12 @@ body {
     input,
     button {
         outline: none;
+    }
+
+    div[data-tippy-root] {
+        width: 100%;
+        inset: 0 !important;
+        transform: translate3d(0, 50px, 0) !important;
     }
 
     :root {

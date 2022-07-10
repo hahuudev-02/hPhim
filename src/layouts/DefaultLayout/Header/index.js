@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function Header() {
     return (
-        <header className="header h-[80px] bg-headerBg z-50">
+        <header className="header h-[80px] bg-headerBg z-[99999]">
             <div className="max-w-screen h-full mx-auto flex-between">
                 <Link to="/" className="navbar-logo">
                     <img src="https://i.imgur.com/GvLWtFD.png" />

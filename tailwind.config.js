@@ -10,6 +10,7 @@ module.exports = {
             },
             maxWidth: {
                 screen: "1220px",
+                wSearch: "760px"
             },
         },
     },

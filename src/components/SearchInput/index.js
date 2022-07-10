@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import Tippy from '@tippyjs/react/headless';
+import searchApi from '~/api/axios/searchApi';
+import { useDebounce } from '~/hooks';
 
 import { CloseOutlined, SearchOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -7,87 +10,94 @@ import { Link } from 'react-router-dom';
 function SearchInput({ width, placeholder }) {
     const [loading, setLoading] = useState(false);
     const [searchValue, setSearchValue] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+
+
     const searchInputElement = useRef();
+    const debounce = useDebounce(searchValue, 600);
 
     useEffect(() => {
-        if (!searchValue.trim()) return;
+        if (!debounce.trim()) return;
 
-        setLoading(true)
-        setTimeout(() => {
-            setLoading(false)
-        }, 3000)
-    }, [searchValue]);
+        const fechApi = async () => {
+            setLoading(true);
+            const res = await searchApi(debounce);
+            setSearchResults(res.data);
+            setLoading(false);
+        };
+
+        fechApi();
+    }, [debounce]);
 
     return (
         <div className="relative w-full ">
-            <div className="flex h-10 ">
-                <div className="flex-1 flex relative">
-                    <input
-                        type="text"
-                        ref={searchInputElement}
-                        className="w-full rounded-l-md pl-4"
-                        placeholder={placeholder || 'Bạn muốn tìm phim gì ?'}
-                        value={searchValue}
-                        onChange={(e) => setSearchValue(e.target.value)}
-                    />
+            <Tippy
+                visible={searchValue}
+                interactive
+                offset={0}
+                zIndex={99}
+                className="w-[500px]"
+                render={(attrs) => (
+                    <div className="serach-result max-w-wSearch mx-auto bg-white rounded-xl" tabIndex="-1" {...attrs}>
+                        <div className="p-4 text-[#4B0082] font-bold">
+                            <div className="h-9 flex items-center shadow-sm">
+                                <div className="relative flex-1 h-full flex items-center text-lg">
+                                    <i className="h-full w-10">
+                                        {!loading && <SearchOutlined className="mr-2 text-xl mb-1" />}
+                                        {loading && <LoadingOutlined className="absolute text-xl  top-0 left-0" />}
+                                    </i>
+                                    Kết quả cho {searchValue}
+                                </div>
 
-                    {searchValue && (
-                        <CloseOutlined
-                            onClick={() => {
-                                setSearchValue('');
-                                searchInputElement.current.focus();
-                            }}
-                            className="absolute right-3 top-2/4 translate-y-[-50%] cursor-pointer"
-                        />
-                    )}
-                </div>
-                <button className={`h-full w-[160px] bg-[#3898ec] text-white font-semibold rounded-r-md`}>
-                    Tìm kiếm
-                </button>
-            </div>
-
-            {searchValue && (
-                <div className="serach-result absolute inset-x-0 top-12 rounded-lg shadow-sm bg-white">
-                    <div className="p-4 text-[#4B0082] font-bold">
-                        <div className="h-9 flex items-center shadow-sm">
-                            <div className="relative flex-1 h-full flex items-center text-lg">
-                                <i className="h-full w-10">
-                                    {!loading && <SearchOutlined className="mr-2 text-xl mb-1" />}
-                                    {loading && <LoadingOutlined className="absolute text-xl  top-0 left-0" />}
-                                </i>
-                                Kết quả cho {searchValue}
+                                <Link to={`/search?q=${debounce}`} className="w-20">
+                                    Xem thêm
+                                </Link>
                             </div>
 
-                            <Link to="" className="w-20">
-                                Xem thêm
-                            </Link>
+                            <ul className="max-h-[420px] overflow-y-auto mt-2">
+                                {searchResults.map((searchResults) => (
+                                    <li className="h-12 mb-1.5 hover:bg-red-200 rounded-xl" key={searchResults._id}>
+                                        <Link to={`/phim/${searchResults.slug}`} className="ml-2 h-full flex items-center p-0.5">
+                                            <img
+                                                src={searchResults.img_p}
+                                                alt=""
+                                                className="h-full rounded-sm"
+                                            />
+                                            <p className="ml-4 text-[#8B008B] font-semibold">{searchResults.name}</p>
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
-
-                        <ul className="max-h-[420px] overflow-y-auto mt-2">
-                            <li className="h-12 mb-1.5 hover:bg-red-200 rounded-xl">
-                                <Link to="#" className="ml-2 h-full flex items-center p-0.5">
-                                    <img
-                                        src="https://static.ssphim.net/static/5fe2d564b3fa6403ffa11d1c/62b2b0e3fb9acdd196886284_poster-nu-luat-su-ky-la-woo-young-woo.jpeg"
-                                        alt=""
-                                        className="h-full rounded-sm"
-                                    />
-                                    <p className="ml-4 text-[#8B008B] font-semibold">Hẹn hò chốn công sở</p>
-                                </Link>
-                            </li>
-                            <li className="h-12 mb-1.5 hover:bg-red-200 rounded-xl">
-                                <Link to="#" className="ml-2 h-full flex items-center p-0.5">
-                                    <img
-                                        src="https://static.ssphim.net/static/5fe2d564b3fa6403ffa11d1c/62b2b0e3fb9acdd196886284_poster-nu-luat-su-ky-la-woo-young-woo.jpeg"
-                                        alt=""
-                                        className="h-full rounded-sm"
-                                    />
-                                    <p className="ml-4 text-[#8B008B] font-semibold">Hẹn hò chốn công sở</p>
-                                </Link>
-                            </li>
-                        </ul>
                     </div>
+                )}
+            >
+                <div className="flex h-10 ">
+                    <div className="flex-1 flex relative">
+                        <input
+                            type="text"
+                            ref={searchInputElement}
+                            className="w-full rounded-l-3xl pl-5"
+                            placeholder={placeholder || 'Bạn muốn tìm phim gì ?'}
+                            value={searchValue}
+                            onChange={(e) => setSearchValue(e.target.value)}
+                        />
+
+                        {searchValue && (
+                            <CloseOutlined
+                                onClick={() => {
+                                    setSearchValue('');
+                                    searchInputElement.current.focus();
+                                }}
+                                className="absolute right-3 top-2/4 translate-y-[-50%] cursor-pointer"
+                            />
+                        )}
+                    </div>
+                    <button className={`h-full w-[160px] bg-[#3898ec] text-white font-semibold rounded-r-3xl`}>
+                        Tìm kiếm
+                    </button>
                 </div>
-            )}
+            </Tippy>
         </div>
     );
 }

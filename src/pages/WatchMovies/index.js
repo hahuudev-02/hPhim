@@ -37,7 +37,7 @@ export default function WatchMovies() {
                     {/* Video  */}
                     <div className="relative pt-[56.25%] rounded-xl border border-headerBg">
                         <ReactPlayer
-                            url={movieChap.mp4Link}
+                            url={"movieChap.mp4Link"}
                             playing={false}
                             controls={true}
                             width="100%"

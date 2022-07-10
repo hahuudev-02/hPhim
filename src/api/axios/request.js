@@ -1,8 +1,9 @@
 import axios from 'axios';
+import env from "react-dotenv";
 
-const urlApi = 'http://localhost:8017/api';
+const urlApi = env.API_URL || 'http://localhost:8017/api';
 
 const request = axios.create({
-    baseURL: 'http://localhost:8017/api',
+    baseURL: urlApi,
 });
 export default request;

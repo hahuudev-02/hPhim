@@ -71,13 +71,12 @@ export default function Footer() {
                             <FooterItem content="Giới thiệu" link="/about-us" />
                         </li>
                         <li>
-                            <FooterItem content="" link="/" />
+                            <FooterItem content="Công việc" link="/" />
                         </li>
                         <li>
                             <FooterItem
                                 title="Lĩnh vực: "
                                 content="Web HPhim do Nguyễn Hà Hũu với vai trò admin. Mục đích đem đến những bộ phim mới và hay nhất cho khán giả. Cảm ơn đã ủng hộ"
-                                link="/"
                             />
                         </li>
                     </ul>

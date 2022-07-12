@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './Header';
+import Footer from './Footer';
 import SearchInput from '../../components/SearchInput';
 
 export default function DefaultLayout({ searchLayout = true, children }) {
@@ -13,6 +14,7 @@ export default function DefaultLayout({ searchLayout = true, children }) {
                     
                 <div className="page mt-10">{children}</div>
             </div>
+            <Footer />
         </div>
     );
 }

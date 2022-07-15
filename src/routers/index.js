@@ -15,3 +15,5 @@ export const publicRouter = [
     { path: '/p/:slug', component: WatchMovies, searchLayout: false },
     { path: '*', component: NotFound },
 ];
+
+export const privateRouters = [];

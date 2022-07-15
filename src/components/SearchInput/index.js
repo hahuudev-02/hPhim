@@ -12,7 +12,6 @@ function SearchInput({ width, placeholder }) {
     const [searchValue, setSearchValue] = useState('');
     const [searchResults, setSearchResults] = useState([]);
 
-
     const searchInputElement = useRef();
     const debounce = useDebounce(searchValue, 600);
 
@@ -34,11 +33,10 @@ function SearchInput({ width, placeholder }) {
             <Tippy
                 visible={searchValue}
                 interactive
-                offset={0}
+                placement="bottom"
                 zIndex={99}
-                className="w-[500px]"
                 render={(attrs) => (
-                    <div className="serach-result max-w-wSearch mx-auto bg-white rounded-xl" tabIndex="-1" {...attrs}>
+                    <div className="serach-result w-wSearchSm md:w-wSearchMd lg:w-wSearchLg mx-auto bg-white rounded-xl" tabIndex="-1" {...attrs}>
                         <div className="p-4 text-[#4B0082] font-bold">
                             <div className="h-9 flex items-center shadow-sm">
                                 <div className="relative flex-1 h-full flex items-center text-lg">
@@ -49,7 +47,7 @@ function SearchInput({ width, placeholder }) {
                                     Kết quả cho {searchValue}
                                 </div>
 
-                                <Link to={`/search?q=${debounce}`} className="w-20">
+                                <Link to={`/search?q=${debounce}`} className="w-20 hover:text-desc-color">
                                     Xem thêm
                                 </Link>
                             </div>
@@ -57,12 +55,11 @@ function SearchInput({ width, placeholder }) {
                             <ul className="max-h-[420px] overflow-y-auto mt-2">
                                 {searchResults.map((searchResults) => (
                                     <li className="h-12 mb-1.5 hover:bg-red-200 rounded-xl" key={searchResults._id}>
-                                        <Link to={`/phim/${searchResults.slug}`} className="ml-2 h-full flex items-center p-0.5">
-                                            <img
-                                                src={searchResults.img_p}
-                                                alt=""
-                                                className="h-full rounded-sm"
-                                            />
+                                        <Link
+                                            to={`/phim/${searchResults.slug}`}
+                                            className="ml-2 h-full flex items-center p-0.5"
+                                        >
+                                            <img src={searchResults.img_p} alt="" className="h-full rounded-sm" />
                                             <p className="ml-4 text-[#8B008B] font-semibold">{searchResults.name}</p>
                                         </Link>
                                     </li>
@@ -77,7 +74,7 @@ function SearchInput({ width, placeholder }) {
                         <input
                             type="text"
                             ref={searchInputElement}
-                            className="w-full rounded-l-3xl pl-5"
+                            className="w-full rounded-l-3xl px-5"
                             placeholder={placeholder || 'Bạn muốn tìm phim gì ?'}
                             value={searchValue}
                             onChange={(e) => setSearchValue(e.target.value)}
@@ -93,7 +90,7 @@ function SearchInput({ width, placeholder }) {
                             />
                         )}
                     </div>
-                    <button className={`h-full w-[160px] bg-[#3898ec] text-white font-semibold rounded-r-3xl`}>
+                    <button className={`h-full w-24 md:w-[130px] lg:w-[160px] bg-[#3898ec] text-white font-semibold rounded-r-3xl`}>
                         Tìm kiếm
                     </button>
                 </div>

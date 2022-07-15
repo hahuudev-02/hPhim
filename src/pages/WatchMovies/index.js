@@ -1,20 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useParams } from 'react-router-dom';
 import ReactPlayer from 'react-player';
+import { getMovies } from '~/api/axios/moviesApi';
 
 import { initdata } from '~/api/initdata';
 import SideBar from './SideBar';
 import { TagOutlined } from '@ant-design/icons';
 
 export default function WatchMovies() {
+    const [movieItem, setMovieItem] = useState({});
+    const [movieChap, setMovieChap] = useState({});
+
     const params = useParams();
     // Cắt chuỗi :slug
     const indexOf = params.slug.indexOf('tap');
     const slugMovie = params.slug.substring(0, indexOf - 1);
     const slugChap = params.slug.substring(indexOf).replace('-', ' ');
+    //
 
-    const movieItem = initdata.newmovies.movies.find((movie) => movie.slug == slugMovie);
-    const movieChap = movieItem.chapMp4s.find((chapMp4) => chapMp4.chapter == slugChap);
+    useEffect(() => {
+        async function fechApi() {
+            const res = await getMovies(slugMovie);
+            const movieChaps = await res.data.chapMp4s.find((chapMp4) => chapMp4.chapter == slugChap);
+            setMovieItem(res.data);
+            setMovieChap(movieChaps);
+        }
+
+        fechApi();
+    }, [slugChap]);
 
     return (
         <div className="">
@@ -37,7 +50,7 @@ export default function WatchMovies() {
                     {/* Video  */}
                     <div className="relative pt-[56.25%] rounded-xl border border-headerBg">
                         <ReactPlayer
-                            url={"movieChap.mp4Link"}
+                            url={movieChap?.mp4Link}
                             playing={false}
                             controls={true}
                             width="100%"
@@ -49,10 +62,10 @@ export default function WatchMovies() {
                     <div className="watch-movie-chap my-6 ">
                         <span className="text-2xl text-[#9CABB6]">CHỌN TẬP PHIM</span>
                         <div className="flex flex-wrap">
-                            {movieItem.chapMp4s.map((chapMp4, index) => (
+                            {movieItem.chapMp4s?.map((chapMp4, index) => (
                                 <Link
                                     to={`/p/${movieItem.slug}-tap-${index + 1}`}
-                                    key={index}
+                                    key={chapMp4._id}
                                     className="w-8 h-8 mr-4 mt-4 rounded-full bg-red-500 text-white text-center leading-7"
                                 >
                                     {index + 1}

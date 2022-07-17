@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Link, NavLink, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import ReactPlayer from 'react-player';
-import { getMovies } from '~/api/axios/moviesApi';
+import { getMovieBySlug } from '~/api/axios/moviesApi';
 
 import { initdata } from '~/api/initdata';
 import SideBar from './SideBar';
 import { TagOutlined } from '@ant-design/icons';
 
 export default function WatchMovies() {
-    const [movieItem, setMovieItem] = useState({});
+    const movieItem = useSelector((state) => state.movies.getMovieBySlug.currentMovies);
+    // const [movieItem, setMovieItem] = useState({});
     const [movieChap, setMovieChap] = useState({});
 
     const params = useParams();
@@ -20,9 +22,8 @@ export default function WatchMovies() {
 
     useEffect(() => {
         async function fechApi() {
-            const res = await getMovies(slugMovie);
-            const movieChaps = await res.data.chapMp4s.find((chapMp4) => chapMp4.chapter == slugChap);
-            setMovieItem(res.data);
+            
+            const movieChaps = await movieItem.chapMp4s.find((chapMp4) => chapMp4.chapter == slugChap);
             setMovieChap(movieChaps);
         }
 

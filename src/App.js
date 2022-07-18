@@ -1,9 +1,11 @@
-import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { publicRouter } from '~/routers';
+import { publicRouter, privateRouters } from '~/routers';
 import DefaultLayout from '~/layouts/DefaultLayout';
 
 function App() {
+
+ 
 
     // useEffect(() => {
     //     document.title = 'hii'
@@ -20,7 +22,7 @@ function App() {
                             key={rotuer.path}
                             path={rotuer.path}
                             element={
-                                <Layout searchLayout={rotuer.searchLayout}>
+                                <Layout searchLayout={rotuer.searchLayout} layout={rotuer.layout}>
                                     <Page />
                                 </Layout>
                             }

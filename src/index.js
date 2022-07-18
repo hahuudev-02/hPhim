@@ -3,16 +3,19 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import GlobalStyle from '~/components/GlobalStyles';
 import { Provider } from 'react-redux';
-import { store } from '~/redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from '~/redux/store';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-            <GlobalStyle>
-                <App />
-            </GlobalStyle>
+            <PersistGate loading={null} persistor={persistor}>
+                <GlobalStyle>
+                    <App />
+                </GlobalStyle>
+            </PersistGate>
         </Provider>
     </React.StrictMode>,
 );
@@ -21,3 +24,4 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+

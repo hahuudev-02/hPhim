@@ -1,14 +1,21 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import Tippy from '@tippyjs/react/headless';
 import { BellOutlined, BarsOutlined, CloudUploadOutlined } from '@ant-design/icons';
+
+import { routes } from '~/routers';
+import InfoUser from './InfoUser';
 import Notify from './Notify';
 
 export default function Header() {
     const [activeNotify, setActiveNotify] = useState(false);
-    // const [activeNavbar, setActiveNotify] = useState(true);
+    const [activeInfoUser, setActiveInfoUser] = useState(false);
+
+    const user = useSelector((state) => state.auth.Userlogin.currentUser);
 
     const navbar = useRef();
+
     const handleNavBar = () => {
         navbar.current.classList.toggle('hidden');
     };
@@ -50,13 +57,8 @@ export default function Header() {
                 </nav>
 
                 <div className="navbar-actions w-[160px] ">
-                    {/* <div className="bg-red-500 w-32 h-9 rounded-[60px] flex-center">
-                        <Link to="/login" className="mb-0.5 text-white font-semibold text-base">
-                            Đăng nhập
-                        </Link>
-                    </div> */}
-                    <div className="flex items-center justify-between">
-                        <div className="upload">
+                    {!user ? (
+                        <div className="w-full flex-between">
                             <Tippy
                                 render={(attrs) => (
                                     <div className="bg-white rounded-lg z-10 py-1.5 px-3" tabIndex="-1" {...attrs}>
@@ -64,36 +66,72 @@ export default function Header() {
                                     </div>
                                 )}
                             >
-                                <Link to="/uploat">
+                                <Link to={routes.upload}>
                                     <CloudUploadOutlined className="text-white text-2xl" />
                                 </Link>
                             </Tippy>
-                        </div>
-                        <div className="notfy ">
-                            <Tippy
-                                visible={activeNotify}
-                                interactive
-                                zIndex={99}
-                                render={(attrs) => (
-                                    <div className="bg-red-500 w-[520px] h-[500px]" tabIndex="-1" {...attrs}>
-                                        My tippy box
-                                    </div>
-                                )}
-                            >
-                                <div className="" onClick={() => setActiveNotify(!activeNotify)}>
-                                    <BellOutlined className="text-2xl text-white" />
-                                </div>
-                            </Tippy>
-                        </div>
 
-                        <div className="infor">
-                            <img
-                                src="https://static.fullstack.edu.vn/static/media/fallback-avatar.155cdb2376c5d99ea151.jpg"
-                                alt=""
-                                className="w-11 h-11 rounded-full"
-                            />
+                            <div className="bg-red-500 w-28 h-9 rounded-[60px] flex-center">
+                                <Link to="/login" className="mb-0.5 text-white font-semibold text-base">
+                                    Đăng nhập
+                                </Link>
+                            </div>
                         </div>
-                    </div>
+                    ) : (
+                        <div className="flex items-center justify-between">
+                            <div className="upload">
+                                <Tippy
+                                    render={(attrs) => (
+                                        <div className="bg-white rounded-lg z-10 py-1.5 px-3" tabIndex="-1" {...attrs}>
+                                            Uploat phim
+                                        </div>
+                                    )}
+                                >
+                                    <Link to={routes.upload}>
+                                        <CloudUploadOutlined className="text-white text-2xl" />
+                                    </Link>
+                                </Tippy>
+                            </div>
+                            <div className="notfy ">
+                                <Tippy
+                                    visible={activeNotify}
+                                    interactive
+                                    zIndex={99}
+                                    onClickOutside={() => setActiveNotify(false)}
+                                    render={(attrs) => (
+                                        <div className="bg-red-500 w-[520px] h-[500px]" tabIndex="-1" {...attrs}>
+                                            My tippy box hi
+                                        </div>
+                                    )}
+                                >
+                                    <div className="" onClick={() => setActiveNotify(!activeNotify)}>
+                                        <BellOutlined className="text-2xl text-white" />
+                                    </div>
+                                </Tippy>
+                            </div>
+
+                            <div className="infor">
+                                <Tippy
+                                    visible={activeInfoUser}
+                                    interactive
+                                    zIndex={99}
+                                    onClickOutside={() => setActiveInfoUser(false)}
+                                    render={(attrs) => (
+                                        <div className="bg-white shadow-lg rounded-md w-[240px] max-h-[500px]" tabIndex="-1" {...attrs}>
+                                            <InfoUser user={user} />
+                                        </div>
+                                    )}
+                                >
+                                    <img
+                                        src={user.photoURL}
+                                        alt=""
+                                        className="w-11 h-11 rounded-full"
+                                        onClick={() => setActiveInfoUser(!activeInfoUser)}
+                                    />
+                                </Tippy>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </header>

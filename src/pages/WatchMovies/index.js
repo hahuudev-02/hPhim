@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Link, NavLink, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import ReactPlayer from 'react-player';
-import { getMovies } from '~/api/axios/moviesApi';
 
 import { initdata } from '~/api/initdata';
 import SideBar from './SideBar';
+
 import { TagOutlined } from '@ant-design/icons';
 
 export default function WatchMovies() {
-    const [movieItem, setMovieItem] = useState({});
+    const movieItem = useSelector((state) => state.movies.getMovieBySlug.currentMovies);
     const [movieChap, setMovieChap] = useState({});
 
     const params = useParams();
@@ -20,15 +21,12 @@ export default function WatchMovies() {
 
     useEffect(() => {
         async function fechApi() {
-            const res = await getMovies(slugMovie);
-            const movieChaps = await res.data.chapMp4s.find((chapMp4) => chapMp4.chapter == slugChap);
-            setMovieItem(res.data);
+            const movieChaps = await movieItem.chapMp4s.find((chapMp4) => chapMp4.chapter == slugChap);
             setMovieChap(movieChaps);
         }
 
         fechApi();
     }, [slugChap]);
-
     return (
         <div className="">
             <div className="grid grid-cols-[1.2fr,2fr] gap-6">
@@ -59,18 +57,20 @@ export default function WatchMovies() {
                             // origin="localhost:3000"
                         />
                     </div>
+
                     <div className="watch-movie-chap my-6 ">
-                        <span className="text-2xl text-[#9CABB6]">CHỌN TẬP PHIM</span>
+                        <span className="text-2xl text-[#9CABB6]">{movieItem.chapMp4s.length > 1 ? 'CHỌN TẬP PHIM' : 'PHIM NGẮN'}</span>
                         <div className="flex flex-wrap">
-                            {movieItem.chapMp4s?.map((chapMp4, index) => (
-                                <Link
-                                    to={`/p/${movieItem.slug}-tap-${index + 1}`}
-                                    key={chapMp4._id}
-                                    className="w-8 h-8 mr-4 mt-4 rounded-full bg-red-500 text-white text-center leading-7"
-                                >
-                                    {index + 1}
-                                </Link>
-                            ))}
+                            {movieItem.chapMp4s.length > 1 &&
+                                movieItem.chapMp4s?.map((chapMp4, index) => (
+                                    <Link
+                                        to={`/p/${movieItem.slug}-tap-${index + 1}`}
+                                        key={chapMp4._id}
+                                        className="w-8 h-8 mr-4 mt-4 rounded-full bg-red-500 text-white text-center leading-7"
+                                    >
+                                        {index + 1}
+                                    </Link>
+                                ))}
                         </div>
                     </div>
                     <div className="h-14 w-full bg-yellow-500">Chiếu độc quyền trên website Hà Hữu</div>

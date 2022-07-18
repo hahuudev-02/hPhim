@@ -64,7 +64,7 @@ body {
     left-0 top-full p-5 md:p-0 shadow-md md:shadow-none rounded-md animate-slideIn md:animate-none;
 
     ul.navbar-list {
-        @apply flex space-y-5 md:space-y-0 md:space-x-5 flex-col md:flex-row;
+        @apply flex space-y-5 md:space-y-0 md:space-x-6 flex-col md:flex-row;
 
         .navbar-link {
             @apply h-full text-white text-base md:text-xl font-bold hover:text-red-500;
@@ -84,7 +84,7 @@ body {
         border-radius: 50%;
     }
     button.slick-next {
-        right: -15px;
+        right: -25px;
 
         &::before {
             color: #333;
@@ -94,7 +94,7 @@ body {
     }
     button.slick-prev {
         z-index: 1;
-        left: -15px;
+        left: -25px;
         &::before {
             content: '<';
             color: #333;
@@ -130,4 +130,24 @@ ul.slick-dots {
             }
         }
     }
+}
+
+// Loading
+.loading {
+    @apply mx-auto top-8 relative w-14 h-14 rounded-full border-4 border-red-400 border-l-transparent after:content-[''] animate-rotate-360 after:animate-rotate-720  after:absolute after:rounded-full after:border-[3px] after:top-3 after:left-3
+     after:right-3 after:bottom-3 after:border-green-500 after:border-b-transparent;
+}
+
+//
+.btn-trailer {
+    @apply h-11 w-20 bg-[#3898ec] text-center leading-10 rounded-md text-white;
+}
+
+.btn-play-movie {
+    @apply h-11 w-28 bg-red-400 ml-4 text-center leading-10 rounded-md text-white;
+}
+
+//
+.test:hover .icon-play {
+    display: block;
 }

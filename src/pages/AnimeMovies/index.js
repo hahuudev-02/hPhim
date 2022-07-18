@@ -1,8 +1,7 @@
-import React from 'react'
+import React from 'react';
 
-export default function NewMovies() {
-  return (
-    <div>NewMovies</div>
-  )
+export default function AnimeMovies() {
+    return (
+        <div className=""></div>
+    );
 }
-

@@ -1,34 +1,24 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Tippy from '@tippyjs/react/headless';
 import { BellOutlined, BarsOutlined, CloudUploadOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router';
 
 import { routes } from '~/routers';
+import InfoUser from './InfoUser';
 import Notify from './Notify';
-import { logout } from '~/api/firebase/login.js';
-
-const imgdf = 'https://static.fullstack.edu.vn/static/media/fallback-avatar.155cdb2376c5d99ea151.jpg';
 
 export default function Header() {
     const [activeNotify, setActiveNotify] = useState(false);
+    const [activeInfoUser, setActiveInfoUser] = useState(false);
 
-    const user = useSelector((state) => state.auth.login.currentUser);
-    
+    const user = useSelector((state) => state.auth.Userlogin.currentUser);
 
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
     const navbar = useRef();
 
     const handleNavBar = () => {
         navbar.current.classList.toggle('hidden');
     };
-
-    const handleLogout = () => {
-        logout(dispatch, navigate);
-    };
-
 
     return (
         <header className="header h-[60px] md:h-[80px] bg-headerBg z-[99]">
@@ -68,7 +58,7 @@ export default function Header() {
 
                 <div className="navbar-actions w-[160px] ">
                     {!user ? (
-                        <div className="bg-red-500 w-32 h-9 rounded-[60px] flex-center">
+                        <div className="w-full flex-between">
                             <Tippy
                                 render={(attrs) => (
                                     <div className="bg-white rounded-lg z-10 py-1.5 px-3" tabIndex="-1" {...attrs}>
@@ -80,9 +70,12 @@ export default function Header() {
                                     <CloudUploadOutlined className="text-white text-2xl" />
                                 </Link>
                             </Tippy>
-                            <Link to="/login" className="mb-0.5 text-white font-semibold text-base">
-                                Đăng nhập
-                            </Link>
+
+                            <div className="bg-red-500 w-28 h-9 rounded-[60px] flex-center">
+                                <Link to="/login" className="mb-0.5 text-white font-semibold text-base">
+                                    Đăng nhập
+                                </Link>
+                            </div>
                         </div>
                     ) : (
                         <div className="flex items-center justify-between">
@@ -118,10 +111,24 @@ export default function Header() {
                             </div>
 
                             <div className="infor">
-                                <img src={user.photoURL} alt="" className="w-11 h-11 rounded-full" />
-                                <button className="" onClick={handleLogout}>
-                                    Logout
-                                </button>
+                                <Tippy
+                                    visible={activeInfoUser}
+                                    interactive
+                                    zIndex={99}
+                                    onClickOutside={() => setActiveInfoUser(false)}
+                                    render={(attrs) => (
+                                        <div className="bg-white shadow-lg rounded-md w-[240px] max-h-[500px]" tabIndex="-1" {...attrs}>
+                                            <InfoUser user={user} />
+                                        </div>
+                                    )}
+                                >
+                                    <img
+                                        src={user.photoURL}
+                                        alt=""
+                                        className="w-11 h-11 rounded-full"
+                                        onClick={() => setActiveInfoUser(!activeInfoUser)}
+                                    />
+                                </Tippy>
                             </div>
                         </div>
                     )}

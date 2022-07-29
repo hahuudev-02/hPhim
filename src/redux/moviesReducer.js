@@ -13,6 +13,11 @@ const moviesSlice = createSlice({
             isLoading: false,
             isError: false,
         },
+        uploatMovie: {
+            currentMovies: null,
+            isLoading: false,
+            isError: false,
+        }
     },
     reducers: {
         getfullMoviesStart: (state) => {
@@ -28,7 +33,7 @@ const moviesSlice = createSlice({
             state.getfullMovies.isLoading = false;
             state.getfullMovies.isError = true;
         },
-        //
+        //getMovieBySlug
         getMovieBySlugStart: (state) => {
             state.getMovieBySlug.isLoading = true;
             state.getMovieBySlug.isError = false;
@@ -42,6 +47,20 @@ const moviesSlice = createSlice({
             state.getMovieBySlug.isLoading = false;
             state.getMovieBySlug.isError = true;
         },
+        // Uploat movies
+        uploatMovieStart: (state) => {
+            state.uploatMovie.isLoading = true;
+            state.uploatMovie.isError = false;
+        },
+        uploatMovieSucces: (state, actions) => {
+            state.uploatMovie.isLoading = false;
+            state.uploatMovie.currentMovies = actions.payload;
+            state.uploatMovie.isError = false;
+        },
+        uploatMovieError: (state) => {
+            state.uploatMovie.isLoading = false;
+            state.uploatMovie.isError = true;
+        },
     },
 });
 
@@ -52,5 +71,8 @@ export const {
     getMovieBySlugStart,
     getMovieBySlugSucces,
     getMovieBySlugError,
+    uploatMovieStart,
+    uploatMovieSucces,
+    uploatMovieError
 } = moviesSlice.actions;
 export default moviesSlice.reducer;

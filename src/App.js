@@ -1,34 +1,46 @@
 import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { publicRouter, privateRouters } from '~/routers';
+import { publicRouters, privateRouters, ProtecredRoute } from '~/routers';
 import DefaultLayout from '~/layouts/DefaultLayout';
 
 function App() {
-
- 
-
-    // useEffect(() => {
-    //     document.title = 'hii'
-    // }, [])
-
     return (
         <Router>
             <Routes>
-                {publicRouter.map((rotuer) => {
+                {publicRouters.map((router) => {
                     const Layout = DefaultLayout;
-                    const Page = rotuer.component;
+                    const Page = router.component;
                     return (
                         <Route
-                            key={rotuer.path}
-                            path={rotuer.path}
+                            key={router.path}
+                            path={router.path}
                             element={
-                                <Layout searchLayout={rotuer.searchLayout} layout={rotuer.layout}>
+                                <Layout searchLayout={router.searchLayout} layout={router.layout}>
                                     <Page />
                                 </Layout>
                             }
                         />
                     );
                 })}
+
+                <Route element={<ProtecredRoute/>}>
+                    {privateRouters.map((router) => {
+                        const Layout = DefaultLayout;
+                        const Page = router.component;
+
+                        return (
+                            <Route
+                                key={router.path}
+                                path={router.path}
+                                element={
+                                    <Layout searchLayout={router.searchLayout} layout={router.layout}>
+                                        <Page />
+                                    </Layout>
+                                }
+                            />
+                        );
+                    })}
+                </Route>
             </Routes>
         </Router>
     );

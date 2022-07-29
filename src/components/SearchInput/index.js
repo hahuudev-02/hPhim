@@ -16,7 +16,10 @@ function SearchInput({ width, placeholder }) {
     const debounce = useDebounce(searchValue, 600);
 
     useEffect(() => {
-        if (!debounce.trim()) return;
+        if (!debounce.trim()) {
+            setSearchResults([]);
+            return;
+        };
 
         const fechApi = async () => {
             setLoading(true);
@@ -27,7 +30,6 @@ function SearchInput({ width, placeholder }) {
 
         fechApi();
     }, [debounce]);
-
     return (
         <div className="relative w-full ">
             <Tippy
@@ -36,7 +38,11 @@ function SearchInput({ width, placeholder }) {
                 placement="bottom"
                 zIndex={99}
                 render={(attrs) => (
-                    <div className="serach-result w-wSearchSm md:w-wSearchMd lg:w-wSearchLg mx-auto bg-white rounded-xl" tabIndex="-1" {...attrs}>
+                    <div
+                        className="serach-result w-wSearchSm md:w-wSearchMd lg:w-wSearchLg mx-auto bg-white rounded-xl"
+                        tabIndex="-1"
+                        {...attrs}
+                    >
                         <div className="p-4 text-[#4B0082] font-bold">
                             <div className="h-9 flex items-center shadow-sm">
                                 <div className="relative flex-1 h-full flex items-center text-lg">
@@ -53,17 +59,25 @@ function SearchInput({ width, placeholder }) {
                             </div>
 
                             <ul className="max-h-[420px] overflow-y-auto mt-2">
-                                {searchResults.map((searchResults) => (
-                                    <li className="h-12 mb-1.5 hover:bg-red-200 rounded-xl" key={searchResults._id}>
-                                        <Link
-                                            to={`/phim/${searchResults.slug}`}
-                                            className="ml-2 h-full flex items-center p-0.5"
-                                        >
-                                            <img src={searchResults.img_p} alt="" className="h-full rounded-sm" />
-                                            <p className="ml-4 text-[#8B008B] font-semibold">{searchResults.name}</p>
-                                        </Link>
+                                {debounce && !loading && searchResults.length == 0 ? (
+                                    <li className="h-12 mb-1.5 hover:bg-red-200 rounded-xl">
+                                        Không có kết quả tìm kiếm
                                     </li>
-                                ))}
+                                ) : (
+                                    searchResults.map((searchResults) => (
+                                        <li className="h-12 mb-1.5 hover:bg-red-200 rounded-xl" key={searchResults._id}>
+                                            <Link
+                                                to={`/phim/${searchResults.slug}`}
+                                                className="ml-2 h-full flex items-center p-0.5"
+                                            >
+                                                <img src={searchResults.img_p} alt="" className="h-full rounded-sm" />
+                                                <p className="ml-4 text-[#8B008B] font-semibold">
+                                                    {searchResults.name}
+                                                </p>
+                                            </Link>
+                                        </li>
+                                    ))
+                                )}
                             </ul>
                         </div>
                     </div>
@@ -84,13 +98,16 @@ function SearchInput({ width, placeholder }) {
                             <CloseOutlined
                                 onClick={() => {
                                     setSearchValue('');
+                                    setSearchResults([]);
                                     searchInputElement.current.focus();
                                 }}
                                 className="absolute right-3 top-2/4 translate-y-[-50%] cursor-pointer"
                             />
                         )}
                     </div>
-                    <button className={`h-full w-24 md:w-[130px] lg:w-[160px] bg-[#3898ec] text-white font-semibold rounded-r-3xl`}>
+                    <button
+                        className={`h-full w-24 md:w-[130px] lg:w-[160px] bg-[#3898ec] text-white font-semibold rounded-r-3xl`}
+                    >
                         Tìm kiếm
                     </button>
                 </div>

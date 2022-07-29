@@ -5,7 +5,8 @@ import WatchMovies from '~/pages/WatchMovies';
 import NotFound from '~/pages/NotFound';
 import Search from '~/pages/Search';
 import Login from '~/pages/Login';
-import Upload from 'pages/Upload';
+import Upload from '~/pages/Upload';
+import Profile from '~/pages/Profile';
 
 export const routes = {
     home: '/',
@@ -14,10 +15,10 @@ export const routes = {
     upload: '/upload',
 };
 
-export const publicRouter = [
+export const publicRouters = [
     { path: routes.home, component: Home },
     { path: routes.search, component: Search },
-    { path: '/', component: Home },
+    // { path: '/?page=1', component: Home },
     { path: '/the-loai/phim-le', component: AnimeMovies },
     { path: '/the-loai/phim-hoat-hinh', component: AnimeMovies },
     { path: '/phim/:slug', component: MovieDeitails, searchLayout: false },
@@ -27,24 +28,11 @@ export const publicRouter = [
 ];
 
 export const privateRouters = [
-    { path: '/upload', component: Upload, layout: false },
-    { path: '/profile', component: Upload, layout: false },
+    { path: '/upload', component: Upload, searchLayout: false },
+    { path: '/profile/:id', component: Profile, layout: false },
 ];
 
 
 
-export default function Routes(user) {
-    if(!user) {
-        privateRouters.forEach(({ path, component }) => {
-            for(const route in routes) {
-                if(path == routes[route] ) {
-                    routes[route] = '/'
-                }
-            }
-        });
-        return routes
-    } else {
-        return routes
-    }
-}
+export {default as ProtecredRoute} from './ProtecredRoute'
 

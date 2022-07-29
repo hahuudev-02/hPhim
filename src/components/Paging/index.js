@@ -5,7 +5,7 @@ import { DoubleLeftOutlined, DoubleRightOutlined } from '@ant-design/icons';
 function Paging(props) {
     const [paging, setPaging] = useState(1);
 
-    const arr = [1, 2, 3, 4, 5, 6, 7];
+    const arr = [1, 2, 3, 4, 5, 6, 7, 8];
     return (
         <div className="w-full h-14 flex-center">
             <ul className="max-w-[400px] flex space-x-2">

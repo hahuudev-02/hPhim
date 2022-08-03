@@ -20,13 +20,14 @@ export default function Home() {
     const [searchParams] = useSearchParams();
 
     useEffect(() => {
-        getFullMovies({ dispatch, page: searchParams.get('page')});
+        getFullMovies({ dispatch, page: searchParams.get('page') });
     }, [searchParams.get('page')]);
 
     useEffect(() => {
         getAmoutMovie(dispatch);
     }, []);
-    const top5Movies = movies.slice(0, 5);
+
+    const top5Movies = movies.slice(0, 5) ;
     return (
         <div className="">
             <div className="slider">

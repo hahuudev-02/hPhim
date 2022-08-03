@@ -12,7 +12,6 @@ export default function OddMovie() {
     const isLoading = useSelector((state) => state.movies.getfullMovies.isLoading);
     const dispatch = useDispatch();
     const [searchParams] = useSearchParams();
-    console.log(searchParams.get('page'));
 
     useEffect(() => {
         // setSearchParams({ page: '1' }, { replace: true });

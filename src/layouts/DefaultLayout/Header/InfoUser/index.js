@@ -22,19 +22,14 @@ function InfoUser({ user }) {
                 <img src={user.photoURL} alt="" className="w-14 h-14 rounded-full" />
                 <div className="ml-3 flex flex-col">
                     <span className="font-semibold text-xl">{user.displayName}</span>
-                    <span className="text-info-color">@{nickNameUser}</span>
+                    <span className="text-info-color break-all">@{nickNameUser}</span>
                 </div>
             </div>
 
             <ul className="mt-4 pl-2 border border-transparent border-t-dark-gray ">
                 <li className="">
-                    <Link to="/profile/@hahuu" className="pt-3 text-info-color font-normal hover:text-[#666]">
-                        Quản lý user
-                    </Link>
-                </li>
-                <li className="">
-                    <Link to="/profile/@hahuu" className="pt-3 text-info-color font-normal hover:text-[#666]">
-                        Quản lý Phim
+                    <Link to="/admin/@hahuu" className="pt-3 text-info-color font-normal hover:text-[#666]">
+                        Admin
                     </Link>
                 </li>
             </ul>

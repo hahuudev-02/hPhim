@@ -22,7 +22,6 @@ export default function Home() {
     useEffect(() => {
         getFullMovies({ dispatch, page: searchParams.get('page')});
     }, [searchParams.get('page')]);
-    console.log(searchParams.get('page'));
 
     useEffect(() => {
         getAmoutMovie(dispatch);
@@ -47,9 +46,9 @@ export default function Home() {
                 )}
             </div>
 
-            <div className="paging mt-12">
+            {/* <div className="paging mt-12">
                 <Paging />
-            </div>
+            </div> */}
             <div>
                 <button onClick={notify} className="text-white">
                     Notify!

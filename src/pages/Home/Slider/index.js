@@ -11,8 +11,8 @@ function SliderMovies({ top5Movies }) {
         speed: 800,
         slidesToShow: 1,
         slidesToScroll: 1,
-        // autoplay: true,
-        autoplaySpeed: 5000,
+        autoplay: true,
+        autoplaySpeed: 6000,
     };
     return (
         <>

@@ -11,13 +11,11 @@ function Paging( ) {
 
     let arrPaging = [1];
     for (let i = 0; i <= amoutMovie; i++) {
-        // console.log('hii');
         if ((i / 2 > 1) & (i > 1)) {
             arrPaging.push(i);
         }
     }
 
-    // console.log(arrPaging);
     const handlePage = () => {
         if (page > 1) setPage(page - 1);
     };
@@ -29,7 +27,6 @@ function Paging( ) {
         setSearchParams({page: page})
     }, [page]);
 
-    console.log(page);
 
     return (
         <div className="w-full h-14 flex-center">

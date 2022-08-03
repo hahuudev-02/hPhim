@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRouters, privateRouters, ProtecredRoute } from '~/routers';
 import DefaultLayout from '~/layouts/DefaultLayout';
@@ -10,6 +12,7 @@ function App() {
                 {publicRouters.map((router) => {
                     const Layout = DefaultLayout;
                     const Page = router.component;
+
                     return (
                         <Route
                             key={router.path}

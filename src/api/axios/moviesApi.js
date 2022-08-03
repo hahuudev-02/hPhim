@@ -9,7 +9,7 @@ import {
     getAmoutMovieSucces
 } from '~/redux/moviesReducer';
 
-export const getFullMovies = async ({ dispatch, genre = null, page= 1, limit = 6 }) => {
+export const getFullMovies = async ({ dispatch, genre = null, page= 1, limit = null }) => {
     dispatch(getfullMoviesStart());
     try {
         const res = await request.get('/movies', {
@@ -68,7 +68,6 @@ export const uploatMovie = async (navigate, data) => {
             chapMp4s: [],
         };
         await resChapMp4s.data.forEach((resChapMp4) => {
-            console.log(dataMovie);
             const idChapMovie = resChapMp4.mp4Link.slice(resChapMp4.mp4Link.lastIndexOf('/') + 1);
             const img_p = `https://img.youtube.com/vi/${idChapMovie}/maxresdefault.jpg`;
             dataMovie.chapMp4s.push(resChapMp4._id);
@@ -81,7 +80,6 @@ export const uploatMovie = async (navigate, data) => {
                 chapMp4s: dataMovie.chapMp4s,
             };
         });
-        console.log(dataMovie);
         const resMovie = await request.post('/movies', dataMovie);
         navigate('/');
     } catch (error) {

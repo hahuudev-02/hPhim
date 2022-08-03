@@ -25,14 +25,19 @@ export const publicRouters = [
     { path: '/the-loai/phim-anime', component: AnimeMovies },
     { path: '/phim/:slug', component: MovieDeitails, searchLayout: false },
     { path: '/p/:slug', component: WatchMovies, searchLayout: false },
-    { path: '/login', component: Login, layout: false },
+    { path: routes.login, component: Login, layout: false },
     { path: '*', component: NotFound },
 ];
 
 export const privateRouters = [
     { path: '/upload', component: Upload, searchLayout: false },
     { path: '/profile/:id', component: Profile, layout: false },
+    { path: '/admin/:id', component: Profile, layout: false },
 ];
+
+// export const privateRouters = [
+//     { path: '/upload', component: Upload, searchLayout: false },
+// ];
 
 
 

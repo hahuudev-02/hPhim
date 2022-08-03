@@ -1,4 +1,5 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
+import request from '~/api/axios';
 import { app, analytics } from '~/api/firebase/firebaseConfig';
 
 import { loginStart, loginSuccess, loginError } from '~/redux/authReducer';
@@ -11,9 +12,10 @@ export const loginWithGG = async (dispatch, navigate) => {
     try {
         const result = await signInWithPopup(auth, provider);
         const credential = GoogleAuthProvider.credentialFromResult(result);
-
+        console.log(result);
         const token = credential.accessToken;
         const user = result.user;
+        console.log(credential);
         dispatch(loginSuccess(user));
         navigate('/');
     } catch (error) {

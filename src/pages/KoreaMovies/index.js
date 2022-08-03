@@ -1,20 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 
 import Loading from '~/components/Loading';
 import MovieItem from '~/components/MovieItem';
 import { getFullMovies, getAmoutMovie } from '~/api/axios/moviesApi';
 import Paging from '~/components/Paging';
-import { useSearchParams } from 'react-router-dom';
 
-export default function AnimeMovies() {
+export default function KoreaMovie() {
     const movies = useSelector((state) => state.movies.getfullMovies.currentMovies);
     const isLoading = useSelector((state) => state.movies.getfullMovies.isLoading);
     const dispatch = useDispatch();
+
     const [searchParams] = useSearchParams();
 
     useEffect(() => {
-        getFullMovies({ dispatch, genre: 'anime', page: searchParams.get('page')});
+        // setSearchParams({ page: '1' }, { replace: true });
+        getFullMovies({ dispatch, genre: 'phq', page: searchParams.get('page')});
     }, [searchParams.get('page')]);
 
     useEffect(() => {
@@ -23,7 +25,7 @@ export default function AnimeMovies() {
     return (
         <div className="">
             <div className="">
-                <h2 className="uppercase text-4xl font-bold text-[#f1b722] my-8">Phim ANIME hay nhất</h2>
+                <h2 className="uppercase text-4xl font-bold text-[#f1b722] my-8">Phim tình cảm hàn quốc hay nhất</h2>
                 {isLoading ? (
                     <Loading />
                 ) : (
@@ -35,9 +37,7 @@ export default function AnimeMovies() {
                 )}
             </div>
 
-            <div className="paging">
-                <Paging />
-            </div>
+            <div className="paging mt-10"><Paging/></div>
         </div>
     );
 }

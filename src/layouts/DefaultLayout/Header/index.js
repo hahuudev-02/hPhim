@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Tippy from '@tippyjs/react/headless';
 import { BellOutlined, BarsOutlined, CloudUploadOutlined } from '@ant-design/icons';
@@ -34,24 +34,44 @@ export default function Header() {
                 <nav className="navbar-menu hidden" ref={navbar}>
                     <ul className="navbar-list">
                         <li>
-                            <Link to="/" className="navbar-link">
+                            <NavLink
+                                to="/"
+                                className={({ isActive }) =>
+                                    isActive ? 'navbar-link navbar-link-active' : 'navbar-link'
+                                }
+                            >
                                 Phim mới
-                            </Link>
+                            </NavLink>
                         </li>
                         <li>
-                            <Link to="/the-loai/phim-le" className="navbar-link">
+                            <NavLink
+                                to="/the-loai/phim-le"
+                                className={({ isActive }) =>
+                                    isActive ? 'navbar-link navbar-link-active' : 'navbar-link'
+                                }
+                            >
                                 Phim lẻ
-                            </Link>
+                            </NavLink>
                         </li>
                         <li>
-                            <Link to="/the-loai/phim-hoat-hinh" className="navbar-link">
-                                Phim hoạt hình
-                            </Link>
+                            <NavLink
+                                to="/the-loai/phim-han-quoc"
+                                className={({ isActive }) =>
+                                    isActive ? 'navbar-link navbar-link-active' : 'navbar-link'
+                                }
+                            >
+                                Phim hàn quốc
+                            </NavLink>
                         </li>
                         <li>
-                            <Link to="/the-loai/phim-chieu-rap" className="navbar-link">
-                                Phim chiếu rạp
-                            </Link>
+                            <NavLink
+                                to="/the-loai/phim-anime"
+                                className={({ isActive }) =>
+                                    isActive ? 'navbar-link navbar-link-active' : 'navbar-link'
+                                }
+                            >
+                                Phim Anime
+                            </NavLink>
                         </li>
                     </ul>
                 </nav>
@@ -117,7 +137,11 @@ export default function Header() {
                                     zIndex={99}
                                     onClickOutside={() => setActiveInfoUser(false)}
                                     render={(attrs) => (
-                                        <div className="bg-white shadow-lg rounded-md w-[240px] max-h-[500px]" tabIndex="-1" {...attrs}>
+                                        <div
+                                            className="bg-white shadow-lg rounded-md w-[240px] max-h-[500px]"
+                                            tabIndex="-1"
+                                            {...attrs}
+                                        >
                                             <InfoUser user={user} />
                                         </div>
                                     )}

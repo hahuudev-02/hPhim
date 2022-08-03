@@ -35,7 +35,8 @@ body {
     }
 
     input,
-    button {
+    button,
+    select {
         outline: none;
     }
 
@@ -65,11 +66,14 @@ body {
 
     ul.navbar-list {
         @apply flex space-y-5 md:space-y-0 md:space-x-6 flex-col md:flex-row;
-
-        .navbar-link {
-            @apply h-full text-white text-base md:text-xl font-bold hover:text-red-500;
-        }
     }
+}
+.navbar-link {
+    @apply h-full text-white text-base md:text-xl font-bold hover:text-red-500;
+}
+
+.navbar-link-active {
+    @apply text-red-500;
 }
 
 // Slider
@@ -121,7 +125,7 @@ ul.slick-dots {
     }
 
     li.slick-active {
-        width: 32px;
+        width: 36px;
         background-image: linear-gradient(to right, #654ea3, #eaafc8);
 
         button {
@@ -150,4 +154,14 @@ ul.slick-dots {
 //
 .test:hover .icon-play {
     display: block;
+}
+
+// Paging
+.disable-page {
+    border-color: transparent;
+    cursor: default;
+
+    svg {
+        color: #385b7e;
+    }
 }

@@ -17,7 +17,8 @@ const moviesSlice = createSlice({
             currentMovies: null,
             isLoading: false,
             isError: false,
-        }
+        },
+        getAmountMovie: null,
     },
     reducers: {
         getfullMoviesStart: (state) => {
@@ -61,6 +62,11 @@ const moviesSlice = createSlice({
             state.uploatMovie.isLoading = false;
             state.uploatMovie.isError = true;
         },
+
+        // 
+        getAmoutMovieSucces: (state, actions) => {
+            state.getAmountMovie = actions.payload
+        }
     },
 });
 
@@ -73,6 +79,7 @@ export const {
     getMovieBySlugError,
     uploatMovieStart,
     uploatMovieSucces,
-    uploatMovieError
+    uploatMovieError,
+    getAmoutMovieSucces
 } = moviesSlice.actions;
 export default moviesSlice.reducer;

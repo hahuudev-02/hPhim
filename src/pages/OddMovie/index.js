@@ -1,29 +1,31 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 
 import Loading from '~/components/Loading';
 import MovieItem from '~/components/MovieItem';
 import { getFullMovies, getAmoutMovie } from '~/api/axios/moviesApi';
 import Paging from '~/components/Paging';
-import { useSearchParams } from 'react-router-dom';
 
-export default function AnimeMovies() {
+export default function OddMovie() {
     const movies = useSelector((state) => state.movies.getfullMovies.currentMovies);
     const isLoading = useSelector((state) => state.movies.getfullMovies.isLoading);
     const dispatch = useDispatch();
     const [searchParams] = useSearchParams();
+    console.log(searchParams.get('page'));
 
     useEffect(() => {
-        getFullMovies({ dispatch, genre: 'anime', page: searchParams.get('page')});
+        // setSearchParams({ page: '1' }, { replace: true });
+        getFullMovies({ dispatch, genre: 'pl', page: searchParams.get('page'), limit: 3 });
     }, [searchParams.get('page')]);
 
     useEffect(() => {
-        getAmoutMovie({dispatch, genre: 'phq'});
+        getAmoutMovie(dispatch);
     }, []);
     return (
         <div className="">
             <div className="">
-                <h2 className="uppercase text-4xl font-bold text-[#f1b722] my-8">Phim ANIME hay nhất</h2>
+                <h2 className="uppercase text-4xl font-bold text-[#f1b722] my-8">Phim lẻ hay nhất</h2>
                 {isLoading ? (
                     <Loading />
                 ) : (

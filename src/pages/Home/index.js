@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import SliderMovies from './Slider';
 import Loading from '~/components/Loading';
 import MovieItem from '~/components/MovieItem';
-import { getFullMovies } from '~/api/axios/moviesApi';
+import { getFullMovies, getAmoutMovie } from '~/api/axios/moviesApi';
 import Paging from '~/components/Paging';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useSearchParams } from 'react-router-dom';
 
 export default function Home() {
     const notify = () => toast('Wow so easy!');
@@ -16,14 +17,21 @@ export default function Home() {
     const movies = useSelector((state) => state.movies.getfullMovies.currentMovies);
     const isLoading = useSelector((state) => state.movies.getfullMovies.isLoading);
     const dispatch = useDispatch();
+    const [searchParams] = useSearchParams();
 
     useEffect(() => {
-        getFullMovies(dispatch);
+        getFullMovies({ dispatch, page: searchParams.get('page')});
+    }, [searchParams.get('page')]);
+    console.log(searchParams.get('page'));
+
+    useEffect(() => {
+        getAmoutMovie(dispatch);
     }, []);
+    const top5Movies = movies.slice(0, 5);
     return (
         <div className="">
             <div className="slider">
-                <SliderMovies />
+                <SliderMovies top5Movies={top5Movies} />
             </div>
 
             <div className="">
@@ -39,7 +47,7 @@ export default function Home() {
                 )}
             </div>
 
-            <div className="paging">
+            <div className="paging mt-12">
                 <Paging />
             </div>
             <div>

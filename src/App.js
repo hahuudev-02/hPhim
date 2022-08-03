@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRouters, privateRouters, ProtecredRoute } from '~/routers';
 import DefaultLayout from '~/layouts/DefaultLayout';
@@ -23,7 +23,7 @@ function App() {
                     );
                 })}
 
-                <Route element={<ProtecredRoute/>}>
+                <Route element={<ProtecredRoute />}>
                     {privateRouters.map((router) => {
                         const Layout = DefaultLayout;
                         const Page = router.component;

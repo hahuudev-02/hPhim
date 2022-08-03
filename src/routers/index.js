@@ -7,6 +7,8 @@ import Search from '~/pages/Search';
 import Login from '~/pages/Login';
 import Upload from '~/pages/Upload';
 import Profile from '~/pages/Profile';
+import KoreaMovie from '~/pages/KoreaMovies';
+import OddMovie from '~/pages/OddMovie';
 
 export const routes = {
     home: '/',
@@ -18,9 +20,9 @@ export const routes = {
 export const publicRouters = [
     { path: routes.home, component: Home },
     { path: routes.search, component: Search },
-    // { path: '/?page=1', component: Home },
-    { path: '/the-loai/phim-le', component: AnimeMovies },
-    { path: '/the-loai/phim-hoat-hinh', component: AnimeMovies },
+    { path: '/the-loai/phim-le', component: OddMovie },
+    { path: '/the-loai/phim-han-quoc', component: KoreaMovie },
+    { path: '/the-loai/phim-anime', component: AnimeMovies },
     { path: '/phim/:slug', component: MovieDeitails, searchLayout: false },
     { path: '/p/:slug', component: WatchMovies, searchLayout: false },
     { path: '/login', component: Login, layout: false },

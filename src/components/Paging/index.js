@@ -1,37 +1,68 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 import { DoubleLeftOutlined, DoubleRightOutlined } from '@ant-design/icons';
 
-function Paging(props) {
-    const [paging, setPaging] = useState(1);
+function Paging( ) {
+    const [page, setPage] = useState(1);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const amoutMovie = useSelector((state) => state.movies.getAmountMovie);
 
-    const arr = [1, 2, 3, 4, 5, 6, 7, 8];
+    let arrPaging = [1];
+    for (let i = 0; i <= amoutMovie; i++) {
+        // console.log('hii');
+        if ((i / 2 > 1) & (i > 1)) {
+            arrPaging.push(i);
+        }
+    }
+
+    // console.log(arrPaging);
+    const handlePage = () => {
+        if (page > 1) setPage(page - 1);
+    };
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [page]);
+
+    useEffect(() => {
+        setSearchParams({page: page})
+    }, [page]);
+
+    console.log(page);
+
     return (
         <div className="w-full h-14 flex-center">
             <ul className="max-w-[400px] flex space-x-2">
-                <li className="flex-center w-8 text-white p-2 rounded-md hover:border cursor-pointer">
+                <li
+                    className={`flex-center w-8 text-white p-2 rounded-md hover:border cursor-pointer ${
+                        page == 1 ? 'disable-page' : null
+                    }`}
+                    onClick={handlePage}
+                >
                     <DoubleLeftOutlined className="mt-0.5" />
                 </li>
 
-                {arr.map((index, item) => {
-                    let activePaging;
-                    if (activePaging == index) {
-                        activePaging = 'bg-red-500';
-                    }
+                {arrPaging?.map((item, index) => {
                     return (
                         <li
-                            className={
-                                'flex-center min-w-[32px] text-white p-2 rounded-md hover:border cursor-pointer ' + `${activePaging}`
-                            }
-                            key={index}
-                            onClick={() => setPaging(index)}
+                            className={`flex-center min-w-[32px] text-white p-2 rounded-md hover:border cursor-pointer ${
+                                page == index + 1 && 'bg-red-500'
+                            }`}
+                            key={`${index}-page`}
+                            onClick={() => setPage(index + 1)}
                         >
-                            {index}
+                            {index + 1}
                         </li>
                     );
                 })}
 
-                <li className="flex-center w-8 text-white p-2 rounded-md hover:border cursor-pointer">
+                <li
+                    className={`flex-center w-8 text-white p-2 rounded-md hover:border cursor-pointer  ${
+                        page == arrPaging.length ? 'disable-page' : null
+                    }`}
+                    onClick={() => (page == arrPaging.length ? null : setPage(page + 1))}
+                >
                     <DoubleRightOutlined className="mt-0.5" />
                 </li>
             </ul>

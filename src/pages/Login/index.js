@@ -11,7 +11,7 @@ export default function Login() {
         loginWithGG(dispatch, navigate);
     };
     const handleLoginFb = () => {
-        // loginWithFb(dispatch, navigate);
+        loginWithFb(dispatch, navigate);
         
     }
 

@@ -17,15 +17,24 @@ export default function Login() {
     };
 
     return user ? (
-        <Navigate to='/' />
+        <Navigate to="/" />
     ) : (
-        <div className="w-[500px] mx-auto my-24 bg-red-200">
-            <button className="" onClick={handleLoginGG}>
-                Login with google
-            </button>
-            <button className="block" onClick={handleLoginFb}>
-                Login with facebook
-            </button>
+        <div className="flex-center h-[100vh]">
+            <div className="w-[600px] py-4 bg-red-200 flex flex-col justify-center items-center rounded-3xl shadow-2xl">
+                <button
+                    className="w-[500px] h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl text-xl text-white font-semibold"
+                    onClick={handleLoginGG}
+                >
+                    Login with google
+                </button>
+
+                <button
+                    className="mt-4 w-[500px] h-12 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-3xl text-xl text-white font-semibold"
+                    onClick={handleLoginFb}
+                >
+                    Login with facebook
+                </button>
+            </div>
         </div>
     );
 }

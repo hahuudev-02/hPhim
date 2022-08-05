@@ -165,3 +165,20 @@ ul.slick-dots {
         color: #385b7e;
     }
 }
+
+// TABLE
+
+table > tbody > tr {
+    td {
+        @apply text-center;
+    }
+    td:first-child {
+        @apply text-center;
+    }
+}
+table > tbody > tr:nth-child(2n + 1) {
+    @apply bg-yellow;
+}
+table > tbody > tr:nth-child(2n) {
+    @apply bg-[#9400D3];
+}

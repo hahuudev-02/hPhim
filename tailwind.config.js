@@ -18,6 +18,9 @@ module.exports = {
                 wSearchLg: "760px",
                 wSearchMd: "550px",
             },
+            spacing: {
+                18: "72px",
+            },
             maxWidth: {
                 screen: "1220px",
                 wSearchSm: "384px",
@@ -46,11 +49,14 @@ module.exports = {
                 "blur-down": {
                     "0%": { opacity: 0.2 },
                     "100%": { opacity: 1 },
-                }
+                },
             },
             scale: {
-                '1009': '1.0099',
-              }
+                1009: "1.0099",
+            },
+            boxShadow: {
+                cricle: "0 0 0 30px red",
+            },
         },
     },
     plugins: [],

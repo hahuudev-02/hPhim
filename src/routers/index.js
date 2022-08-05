@@ -9,6 +9,8 @@ import Upload from '~/pages/Upload';
 import Profile from '~/pages/Profile';
 import KoreaMovie from '~/pages/KoreaMovies';
 import OddMovie from '~/pages/OddMovie';
+import Admin from 'pages/Admin';
+import Update from 'pages/Update';
 
 export const routes = {
     home: '/',
@@ -31,8 +33,9 @@ export const publicRouters = [
 
 export const privateRouters = [
     { path: '/upload', component: Upload, searchLayout: false },
+    { path: '/update/:id', component: Update, searchLayout: false },
     { path: '/profile/:id', component: Profile, layout: false },
-    { path: '/admin/:id', component: Profile, layout: false },
+    { path: '/admin/:id', component: Admin, searchLayout: false },
 ];
 
 // export const privateRouters = [

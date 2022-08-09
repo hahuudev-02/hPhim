@@ -9,8 +9,8 @@ import Upload from '~/pages/Upload';
 import Profile from '~/pages/Profile';
 import KoreaMovie from '~/pages/KoreaMovies';
 import OddMovie from '~/pages/OddMovie';
-import Admin from 'pages/Admin';
-import Update from 'pages/Update';
+import Admin from '~/pages/Admin';
+import Update from '~/pages/Update';
 
 export const routes = {
     home: '/',

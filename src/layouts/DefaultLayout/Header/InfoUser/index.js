@@ -11,18 +11,14 @@ function InfoUser({ user }) {
     const handleLogout = () => {
         logout(dispatch, navigate);
     };
-    const nickNameUser = user.displayName
-        .replaceAll(' ', '')
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .toLowerCase();
+    
     return (
         <div className="p-3">
             <div className="flex">
-                <img src={user.photoURL} alt="" className="w-14 h-14 rounded-full" />
+                <img src={user.img_user} alt="" className="w-14 h-14 rounded-full" />
                 <div className="ml-3 flex flex-col">
-                    <span className="font-semibold text-xl">{user.displayName}</span>
-                    <span className="text-info-color break-all">@{nickNameUser}</span>
+                    <span className="font-semibold text-xl">{user.name}</span>
+                    <span className="text-info-color break-all">@{user.slug}</span>
                 </div>
             </div>
 
@@ -36,7 +32,7 @@ function InfoUser({ user }) {
 
             <ul className="mt-3 pl-2 border border-transparent border-t-dark-gray ">
                 <li className="">
-                    <Link to={`/profile/@${nickNameUser}`} className="pt-3 font-normal text-info-color hover:text-[#666]">
+                    <Link to={`/profile/@${user.slug}`} className="pt-3 font-normal text-info-color hover:text-[#666]">
                         Trang cá nhân
                     </Link>
                 </li>

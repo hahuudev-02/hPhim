@@ -48,7 +48,7 @@ export default function WatchMovies() {
                     {/* Video  */}
                     <div className="relative pt-[56.25%] rounded-xl border border-headerBg">
                         <ReactPlayer
-                            url={movieChap?.mp4Link}
+                            url={movieChap.mp4Link}
                             playing={false}
                             controls={true}
                             width="100%"
@@ -62,7 +62,7 @@ export default function WatchMovies() {
                         <span className="text-2xl text-[#9CABB6]">{movieItem.chapMp4s.length > 1 ? 'CHỌN TẬP PHIM' : 'PHIM NGẮN'}</span>
                         <div className="flex flex-wrap">
                             {movieItem.chapMp4s.length > 1 &&
-                                movieItem.chapMp4s?.map((chapMp4, index) => (
+                                movieItem.chapMp4s.map((chapMp4, index) => (
                                     <Link
                                         to={`/p/${movieItem.slug}-tap-${index + 1}`}
                                         key={chapMp4._id}

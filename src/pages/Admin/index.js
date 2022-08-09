@@ -1,8 +1,14 @@
 import { UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { getFullUser, getUserByEmail } from '~/api/axios/userApi';
 
 export default function Admin() {
+    useEffect(() => {
+        // getFullUser('hii');
+        // getUserByEmail('hahuu01032k2@gmail.com');
+    }, []);
+
     return (
         <div className="">
             <div className="flex inline-center justify-between ">
@@ -42,7 +48,7 @@ export default function Admin() {
 
             <div className="users mt-5">
                 <h4 className="text-center text-2xl text-yellow font-bold">User</h4>
-                <table class="mt-4 table-fixed w-full border border-green-800">
+                <table className="mt-4 table-fixed w-full border border-green-800">
                     <thead className="h-10 bg-red-500 text-white font-bold">
                         <tr>
                             <th className="w-16">Stt</th>
@@ -71,7 +77,7 @@ export default function Admin() {
             <div className="Movies mt-5">
                 <h4 className="text-center text-2xl text-yellow font-bold">Movies Detail</h4>
                 <div className="text-2xl text-yellow font-bold">Nguyễn hà hữu</div>
-                <table class="mt-4 table-fixed w-full border border-green-800">
+                <table className="mt-4 table-fixed w-full border border-green-800">
                     <thead className="h-10 bg-red-500 text-white font-bold">
                         <tr>
                             <th className="w-16">Stt</th>
@@ -84,13 +90,15 @@ export default function Admin() {
                     </thead>
                     <tbody>
                         <tr className=" min-h-[60px]">
-                            <td >1</td>
+                            <td>1</td>
                             <td>Malcolm Lockyer</td>
                             <td>1961</td>
                             <td>1961</td>
                             <td>1961</td>
                             <td>
-                                <Link to="/update"className="">Sửa</Link>
+                                <Link to="/update" className="">
+                                    Sửa
+                                </Link>
                                 <button className="ml-2">Xóa</button>
                             </td>
                         </tr>

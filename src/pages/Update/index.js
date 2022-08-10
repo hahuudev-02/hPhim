@@ -1,20 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { uploatMovie } from '~/api/axios/moviesApi';
+import { uploatMovie, getMovieBySlug } from '~/api/axios/moviesApi';
 
 import InputCreate from '~/components/InputCreate';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Update() {
-    const [openMovieSeries, setOpenMovieSeries] = useState(false);
+    const dispatch = useDispatch();
+    const params = useParams();
     const navigate = useNavigate();
+
+    const movieUpdate = useSelector((state) => state.movies.getMovieBySlug.currentMovies);
+    const linkMovieUpdates = movieUpdate.chapMp4s.map((link) => link.mp4Link);
+
+    useEffect(() => {
+        getMovieBySlug(params.slug, dispatch);
+    }, []);
+
     const formik = useFormik({
         initialValues: {
-            name: '',
-            category: 'phq',
-            mainContent: '',
-            linkMovies: [''],
+            name: movieUpdate.name,
+            category: movieUpdate.genre,
+            mainContent: movieUpdate.content,
+            linkMovies: linkMovieUpdates,
         },
         validationSchema: Yup.object({
             name: Yup.string().min(5, 'Phải đủ 5').max(50, 'nhỏ hơn 50').required('bắt buộc'),
@@ -24,13 +34,10 @@ export default function Update() {
         onSubmit: (values) => {
             const { name, category, mainContent, linkMovies } = values;
             const arrLinks = linkMovies.map((linkMovie) => linkMovie.trim());
-            uploatMovie(navigate, { name, category, mainContent, arrLinks });
+            console.log(arrLinks);
+            // uploatMovie(navigate, { name, category, mainContent, arrLinks });
         },
     });
-    const handleMovie = () => {
-        setOpenMovieSeries(!openMovieSeries);
-        formik.values.linkMovies = [''];
-    };
 
     return (
         <div className="flex flex-col items-center">
@@ -86,60 +93,29 @@ export default function Update() {
                 </div>
 
                 <div className="mt-4 form-item w-full">
-                    <div className="flex justify-between">
-                        <div className="flex-center">
-                            <label htmlFor="sort-movie" className="block text-xl font-semibold text-yellow mr-4">
-                                Phim ngắn
+                    {formik.values.linkMovies.map((linkMovie, index) => (
+                        <div className="form-item flex flex-col space-y-2" key={linkMovie + index}>
+                            <label htmlFor="name" className="text-xl font-semibold text-yellow">
+                                Tập {index + 1}
                             </label>
-                            <input
-                                type="radio"
-                                name="radio"
-                                id="sort-movie"
-                                className="w-4 h-4"
-                                value="1"
-                                checked={!openMovieSeries}
-                                onChange={handleMovie}
-                            />
-                        </div>
-                        <div className="flex-center">
-                            <label htmlFor="long-movie" className="block text-xl font-semibold text-yellow mr-4">
-                                Phim dài tập
-                            </label>
-                            <input
-                                type="radio"
-                                name="radio"
-                                id="long-movie"
-                                className="w-4 h-4"
-                                checked={openMovieSeries}
-                                onChange={handleMovie}
-                            />
-                        </div>
-                    </div>
-
-                    {!openMovieSeries ? (
-                        <>
                             <input
                                 type="text"
-                                name="linkMovies[0]"
-                                value={formik.values.linkMovies[0]}
+                                name={`linkMovies[${index}]`}
+                                value={linkMovie}
                                 className="mt-3 w-[500px] h-10 pl-4 rounded-2xl"
                                 onChange={formik.handleChange}
                             />
-                            {formik.errors.linkMovies && (
-                                <span className="block text-red-500">{formik.errors.linkMovies}</span>
+                            {formik.errors.linkMovies && formik.errors.linkMovies[index] && (
+                                <span className="text-red-500">{formik.errors.linkMovies[index]}</span>
                             )}
-                        </>
-                    ) : (
-                        <InputCreate
-                            name="linkMovies"
-                            value={formik.values.linkMovies}
-                            onChange={formik.handleChange}
-                            errors={formik.errors.linkMovies}
-                        />
-                    )}
-                </div>
+                        </div>
+                    ))}
+                    <div className="mt-4 w-full flex-center">
+                        <button className="w-20 h-10 bg-yellow rounded-3xl text-white">Add</button>
 
-                <div className="mt-4"></div>
+                        <button className="ml-4 w-20 h-10 bg-yellow rounded-3xl text-white">Remove</button>
+                    </div>
+                </div>
 
                 <button className="mt-4 text-white w-[160px] h-10 bg-yellow rounded-3xl" type="submit">
                     Uploat phim

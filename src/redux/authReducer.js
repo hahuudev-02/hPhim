@@ -8,6 +8,7 @@ const authSlice = createSlice({
             isLoading: false,
             isError: false,
         },
+        token: null,
         users: {
 
         }
@@ -26,8 +27,11 @@ const authSlice = createSlice({
             state.Userlogin.isLoading = false;
             state.Userlogin.isError = true;
         },
+        addToken: (state, actions) => {
+            state.token = actions.payload;
+        }
     },
 });
 
-export const { loginStart, loginSuccess, loginError } = authSlice.actions;
+export const { loginStart, loginSuccess, loginError, addToken } = authSlice.actions;
 export default authSlice.reducer;

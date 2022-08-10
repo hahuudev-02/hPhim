@@ -147,7 +147,7 @@ export default function Header() {
                                     )}
                                 >
                                     <img
-                                        src={user.photoURL}
+                                        src={user.img_user}
                                         alt=""
                                         className="w-11 h-11 rounded-full"
                                         onClick={() => setActiveInfoUser(!activeInfoUser)}

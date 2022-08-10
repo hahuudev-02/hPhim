@@ -14,7 +14,7 @@ export default function Upload() {
             name: '',
             category: 'phq',
             mainContent: '',
-            linkMovies: [''],
+            linkMovies: [],
         },
         validationSchema: Yup.object({
             name: Yup.string().min(5, 'Phải đủ 5').max(50, 'nhỏ hơn 50').required('bắt buộc'),

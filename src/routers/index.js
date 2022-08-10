@@ -33,16 +33,11 @@ export const publicRouters = [
 
 export const privateRouters = [
     { path: '/upload', component: Upload, searchLayout: false },
-    { path: '/update/:id', component: Update, searchLayout: false },
+    { path: '/update/:slug', component: Update, searchLayout: false },
     { path: '/profile/:id', component: Profile, layout: false },
-    { path: '/admin/:id', component: Admin, searchLayout: false },
 ];
 
-// export const privateRouters = [
-//     { path: '/upload', component: Upload, searchLayout: false },
-// ];
+export const adminRouters = [{ path: '/admin/:id', component: Admin, searchLayout: false }];
 
-
-
-export {default as ProtecredRoute} from './ProtecredRoute'
-
+export { default as ProtecredRoute } from './ProtecredRoute';
+export { default as AdminRoute } from './AdminRoute';

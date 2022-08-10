@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import PropTy3es from 'prop-types';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '~/api/firebase/login.js';
 
 function InfoUser({ user }) {
@@ -11,7 +11,7 @@ function InfoUser({ user }) {
     const handleLogout = () => {
         logout(dispatch, navigate);
     };
-    
+
     return (
         <div className="p-3">
             <div className="flex">
@@ -22,13 +22,15 @@ function InfoUser({ user }) {
                 </div>
             </div>
 
-            <ul className="mt-4 pl-2 border border-transparent border-t-dark-gray ">
-                <li className="">
-                    <Link to="/admin/@hahuu" className="pt-3 text-info-color font-normal hover:text-[#666]">
-                        Admin
-                    </Link>
-                </li>
-            </ul>
+            {user.is_Admin && (
+                <ul className="mt-4 pl-2 border border-transparent border-t-dark-gray ">
+                    <li className="">
+                        <Link to={`/admin/${user.slug}`} className="pt-3 text-info-color font-normal hover:text-[#666]">
+                            Admin
+                        </Link>
+                    </li>
+                </ul>
+            )}
 
             <ul className="mt-3 pl-2 border border-transparent border-t-dark-gray ">
                 <li className="">

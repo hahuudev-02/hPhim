@@ -3,7 +3,7 @@ import request from '~/api/axios';
 import { app, analytics } from '~/api/firebase/firebaseConfig';
 import { getUserByEmail } from '~/api/axios/userApi';
 
-import { loginStart, loginSuccess, loginError } from '~/redux/authReducer';
+import { loginStart, loginSuccess, loginError, addToken } from '~/redux/authReducer';
 import { lowCaseName } from '~/utilities/lowCaseName';
 import { createUser } from '~/api/axios/userApi';
 
@@ -15,10 +15,10 @@ export const loginWithGG = async (dispatch, navigate) => {
     try {
         const result = await signInWithPopup(auth, provider);
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
         const user = result.user;
+        const token = user.accessToken;
+        dispatch(addToken(token))
         let resUser = await getUserByEmail(user.email);
-        console.log(resUser);
         if (!resUser) {
             const nickNameUser = '@' + lowCaseName(user.displayName);
             const User = {
@@ -29,7 +29,7 @@ export const loginWithGG = async (dispatch, navigate) => {
             };
             resUser = await createUser(User);
         }
-        console.log(resUser);
+
         dispatch(loginSuccess(resUser));
         navigate('/');
     } catch (error) {

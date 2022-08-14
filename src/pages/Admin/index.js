@@ -1,5 +1,5 @@
 import { UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
-import { getAmoutMovie } from 'api/axios/moviesApi';
+import { getAmoutMovie } from '~/api/axios/moviesApi';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';

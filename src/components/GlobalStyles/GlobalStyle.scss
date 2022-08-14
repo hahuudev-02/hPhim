@@ -1,5 +1,4 @@
 @import 'normalize.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -61,7 +60,7 @@ body {
 }
 
 .navbar-menu {
-    @apply flex-1 max-w-[160px] md:max-w-full bg-headerBg md:flex items-center justify-center absolute md:static 
+    @apply flex-1 max-w-[160px] md:max-w-full bg-headerBg md:flex items-center justify-center absolute md:static
     left-0 top-full p-5 md:p-0 shadow-md md:shadow-none rounded-md animate-slideIn md:animate-none;
 
     ul.navbar-list {
@@ -172,13 +171,23 @@ table > tbody > tr {
     td {
         @apply text-center;
     }
-    td:first-child {
-        @apply text-center;
+    td {
+        &:first-child {
+            @apply text-center;
+        }
     }
 }
-table > tbody > tr:nth-child(2n + 1) {
-    @apply bg-yellow;
-}
-table > tbody > tr:nth-child(2n) {
-    @apply bg-[#9400D3];
-}
+//  table > tbody {
+//     @mixin tr($n) {
+//         &:nth-child(#2$n + 1) {
+//             @apply bg-yellow;
+//         }
+//     }
+// }
+// table > tbody {
+//     tr {
+//         &:nth-child(2n) {
+//             @apply bg-[#9400D3];
+//         }
+//     }
+// }

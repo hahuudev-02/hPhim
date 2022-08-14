@@ -32,9 +32,9 @@ function MovieItem({ props }) {
             <Link to={`/phim/${props.slug}`} className="text-2xl text-white font-bold">
                 {props.name}
             </Link>
-            <Link to={`/the-loai/${category.slugGenre}`} className="text-white flex items-center mt-2">
+            <Link to={`/the-loai/${category?.slugGenre}`} className="text-white flex items-center mt-2">
                 <TagOutlined rotate="270" className="text-[#f1b722] mr-2" />
-                {category.genre}
+                {category?.genre}
             </Link>
         </div>
     );

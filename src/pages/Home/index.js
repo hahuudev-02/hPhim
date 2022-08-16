@@ -14,8 +14,8 @@ import { useSearchParams } from 'react-router-dom';
 export default function Home() {
     const notify = () => toast('Wow so easy!');
 
-    const movies = useSelector((state) => state.movies.getfullMovies.currentMovies);
-    const isLoading = useSelector((state) => state.movies.getfullMovies.isLoading);
+    const movies = useSelector((state) => state.movies.getfullMovies?.currentMovies);
+    const isLoading = useSelector((state) => state.movies.getfullMovies?.isLoading);
     const dispatch = useDispatch();
     const [searchParams] = useSearchParams();
 
@@ -27,7 +27,7 @@ export default function Home() {
         getAmoutMovie(dispatch);
     }, []);
 
-    const top5Movies = movies.slice(0, 5) ;
+    const top5Movies = movies?.slice(0, 5) ;
     return (
         <div className="">
             <div className="slider">

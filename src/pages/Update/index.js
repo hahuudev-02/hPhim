@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useFormik } from 'formik';
+import { useFormik, Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { uploatMovie, getMovieBySlug } from '~/api/axios/moviesApi';
 
-import InputCreate from '~/components/InputCreate';
 import { useNavigate, useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 

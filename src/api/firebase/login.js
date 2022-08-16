@@ -43,10 +43,22 @@ export const loginWithFb = async (dispatch, navigate) => {
         const result = await signInWithPopup(auth, provider);
         const credential = FacebookAuthProvider.credentialFromResult(result);
 
-        const token = credential.accessToken;
         const user = result.user;
-        dispatch(loginSuccess(user));
-        // navigate('/');
+        const token = user.accessToken;
+        dispatch(addToken(token))
+        let resUser = await getUserByEmail(user.email);
+        if (!resUser) {
+            const nickNameUser = '@' + lowCaseName(user.displayName);
+            const User = {
+                name: user.displayName,
+                slug: nickNameUser,
+                img_user: user.photoURL,
+                email: user.email,
+            };
+            resUser = await createUser(User);
+        }
+        dispatch(loginSuccess(resUser));
+        navigate('/');
     } catch (error) {
         dispatch(loginError());
     }

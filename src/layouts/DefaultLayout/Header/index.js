@@ -7,12 +7,13 @@ import { BellOutlined, BarsOutlined, CloudUploadOutlined } from '@ant-design/ico
 import { routes } from '~/routers';
 import InfoUser from './InfoUser';
 import Notify from './Notify';
+import icon from '~/api/image/hPhim.png';
 
 export default function Header() {
     const [activeNotify, setActiveNotify] = useState(false);
     const [activeInfoUser, setActiveInfoUser] = useState(false);
 
-    const user = useSelector((state) => state.auth.Userlogin.currentUser);
+    const user = useSelector((state) => state.auth.Userlogin?.currentUser);
 
     const navbar = useRef();
 
@@ -25,7 +26,7 @@ export default function Header() {
             <div className="max-w-screen h-full mx-auto flex-between space-x-4 relative">
                 <div className="w-[180px] lg:w-[280px]">
                     <Link to="/" className="navbar-logo hidden md:block">
-                        <img src="https://i.imgur.com/GvLWtFD.png" />
+                        <img src={icon} width="70"/>
                     </Link>
 
                     <BarsOutlined className="text-2xl text-white md:hidden" onClick={handleNavBar} />

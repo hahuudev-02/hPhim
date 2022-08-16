@@ -18,7 +18,7 @@ function InfoUser({ user }) {
                 <img src={user.img_user} alt="" className="w-14 h-14 rounded-full" />
                 <div className="ml-3 flex flex-col">
                     <span className="font-semibold text-xl">{user.name}</span>
-                    <span className="text-info-color break-all">@{user.slug}</span>
+                    <span className="text-info-color break-all">{user.slug}</span>
                 </div>
             </div>
 
@@ -42,7 +42,7 @@ function InfoUser({ user }) {
 
             <ul className="mt-3 pl-2 border border-transparent border-t-dark-gray ">
                 <li>
-                    <Link to="" className="pt-3 text-info-color font-normal hover:text-[#666]">
+                    <Link to="/upload" className="pt-3 text-info-color font-normal hover:text-[#666]">
                         Đăng phim
                     </Link>
                 </li>

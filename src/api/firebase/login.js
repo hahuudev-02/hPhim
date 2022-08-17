@@ -57,7 +57,8 @@ export const loginWithFb = async (dispatch, navigate) => {
             };
             resUser = await createUser(User);
         }
-        dispatch(loginSuccess(resUser));
+        // dispatch(loginSuccess(resUser));
+        console.log(resUser);
         navigate('/');
     } catch (error) {
         dispatch(loginError());

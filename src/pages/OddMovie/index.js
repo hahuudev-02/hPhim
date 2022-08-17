@@ -14,12 +14,11 @@ export default function OddMovie() {
     const [searchParams] = useSearchParams();
 
     useEffect(() => {
-        // setSearchParams({ page: '1' }, { replace: true });
-        getFullMovies({ dispatch, genre: 'pl', page: searchParams.get('page'), limit: 3 });
+        getFullMovies({ dispatch, genre: 'pl', page: searchParams.get('page'), limit: 6 });
     }, [searchParams.get('page')]);
 
     useEffect(() => {
-        getAmoutMovie(dispatch);
+        getAmoutMovie({dispatch, genre: 'pl'});
     }, []);
     return (
         <div className="">
@@ -36,8 +35,8 @@ export default function OddMovie() {
                 )}
             </div>
 
-            <div className="paging">
-                <Paging />
+            <div className="mt-10 flex-center">
+                <Paging currentItems={6}/>
             </div>
         </div>
     );

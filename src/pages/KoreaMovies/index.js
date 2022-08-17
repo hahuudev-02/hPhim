@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
+
 import Loading from '~/components/Loading';
 import MovieItem from '~/components/MovieItem';
 import { getFullMovies, getAmoutMovie } from '~/api/axios/moviesApi';
@@ -15,13 +16,15 @@ export default function KoreaMovie() {
     const [searchParams] = useSearchParams();
 
     useEffect(() => {
-        // setSearchParams({ page: '1' }, { replace: true });
-        getFullMovies({ dispatch, genre: 'phq', page: searchParams.get('page')});
+        getFullMovies({ dispatch, genre: 'phq', page: searchParams.get('page'), limit: 6 });
     }, [searchParams.get('page')]);
 
     useEffect(() => {
-        getAmoutMovie({dispatch, genre: 'phq'});
+        getAmoutMovie({ dispatch, genre: 'phq' });
     }, []);
+
+
+    
     return (
         <div className="">
             <div className="">
@@ -37,7 +40,9 @@ export default function KoreaMovie() {
                 )}
             </div>
 
-            <div className="paging mt-10"><Paging/></div>
+            <div className="mt-10 flex-center">
+                <Paging currentItems={6}/>
+            </div>
         </div>
     );
 }

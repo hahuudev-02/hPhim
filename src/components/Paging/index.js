@@ -3,67 +3,51 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { DoubleLeftOutlined, DoubleRightOutlined } from '@ant-design/icons';
+import ReactPaginate from 'react-paginate';
 
-function Paging( ) {
-    const [page, setPage] = useState(1);
+function Paging({ currentItems }) {
+    const pageCount = Math.ceil(useSelector((state) => state.movies?.getAmountMovie) / currentItems);
     const [searchParams, setSearchParams] = useSearchParams();
-    const amoutMovie = useSelector((state) => state.movies.getAmountMovie);
+    const initialPage =
+        searchParams.get('page') > pageCount || searchParams.get('page') < 1 ? 0 : searchParams.get('page') - 1;
 
-    let arrPaging = [1];
-    for (let i = 0; i <= amoutMovie; i++) {
-        if ((i / 2 > 1) & (i > 1)) {
-            arrPaging.push(i);
+    useEffect(() => {
+        if (searchParams.get('page') == 1) {
+            setSearchParams({ page: '1' });
         }
-    }
 
-    const handlePage = () => {
-        if (page > 1) setPage(page - 1);
+        if (searchParams.get('page') < 1 || searchParams.get('page') > pageCount) {
+            setSearchParams({ page: '1' });
+        }
+    }, []);
+
+    const handlePageChange = (e) => {
+        const page = e.selected + 1;
+        if (page > 0) {
+            setSearchParams({ page: `${page}` });
+        }
     };
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [page]);
-
-    useEffect(() => {
-        setSearchParams({page: page})
-    }, [page]);
-
 
     return (
-        <div className="w-full h-14 flex-center">
-            <ul className="max-w-[400px] flex space-x-2">
-                <li
-                    className={`flex-center w-8 text-white p-2 rounded-md hover:border cursor-pointer ${
-                        page == 1 ? 'disable-page' : null
-                    }`}
-                    onClick={handlePage}
-                >
-                    <DoubleLeftOutlined className="mt-0.5" />
-                </li>
-
-                {arrPaging?.map((item, index) => {
-                    return (
-                        <li
-                            className={`flex-center min-w-[32px] text-white p-2 rounded-md hover:border cursor-pointer ${
-                                page == index + 1 && 'bg-red-500'
-                            }`}
-                            key={`${index}-page`}
-                            onClick={() => setPage(index + 1)}
-                        >
-                            {index + 1}
-                        </li>
-                    );
-                })}
-
-                <li
-                    className={`flex-center w-8 text-white p-2 rounded-md hover:border cursor-pointer  ${
-                        page == arrPaging.length ? 'disable-page' : null
-                    }`}
-                    onClick={() => (page == arrPaging.length ? null : setPage(page + 1))}
-                >
-                    <DoubleRightOutlined className="mt-0.5" />
-                </li>
-            </ul>
-        </div>
+        <ReactPaginate
+            breakLabel="..."
+            nextLabel={<DoubleRightOutlined className="mb-2 ml-2" />}
+            onPageChange={handlePageChange}
+            pageRangeDisplayed={5}
+            initialPage={initialPage}
+            disableInitialCallback={true}
+            pageCount={pageCount}
+            previousLabel={<DoubleLeftOutlined className="mb-2 mr-2" />}
+            renderOnZeroPageCount={null}
+            containerClassName="flex space-x-4"
+            pageClassName="text-white"
+            pageLinkClassName="border border-transparent hover:border-yellow p-2 cursor-pointer"
+            activeLinkClassName="text-red-500 border-yellow cursor-default"
+            disabledLinkClassName="text-[#786666] cursor-default"
+            breakClassName="text-white"
+            previousClassName="text-xl text-white flex-center"
+            nextClassName="text-xl text-white flex-center"
+        />
     );
 }
 

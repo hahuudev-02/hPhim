@@ -14,11 +14,11 @@ export default function AnimeMovies() {
     const [searchParams] = useSearchParams();
 
     useEffect(() => {
-        getFullMovies({ dispatch, genre: 'anime', page: searchParams.get('page')});
+        getFullMovies({ dispatch, genre: 'anime', page: searchParams.get('page'), limit: 6});
     }, [searchParams.get('page')]);
 
     useEffect(() => {
-        getAmoutMovie({dispatch, genre: 'phq'});
+        getAmoutMovie({dispatch, genre: 'anime'});
     }, []);
     return (
         <div className="">
@@ -35,8 +35,8 @@ export default function AnimeMovies() {
                 )}
             </div>
 
-            <div className="paging">
-                <Paging />
+            <div className="mt-10 flex-center">
+                <Paging currentItems={6}/>
             </div>
         </div>
     );

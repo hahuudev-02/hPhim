@@ -11,10 +11,11 @@ export default function Update() {
     const params = useParams();
     const navigate = useNavigate();
 
-    const movieUpdate = useSelector((state) => state.movies.getMovieBySlug.currentMovies);
-    const linkMovieUpdates = movieUpdate.chapMp4s.map((link) => link.mp4Link);
+    const movieUpdate = useSelector((state) => state.movies.getMovieBySlug?.currentMovies);
+    const linkMovieUpdates = movieUpdate?.chapMp4s.map((link) => link.mp4Link);
 
     useEffect(() => {
+        console.log(params.slug);
         getMovieBySlug(params.slug, dispatch);
     }, []);
 
@@ -40,7 +41,7 @@ export default function Update() {
 
     return (
         <div className="flex flex-col items-center">
-            <h4 className="text-2xl text-white">Đăng phim</h4>
+            <h4 className="text-2xl text-white">Uploat phim</h4>
 
             <form action="" className="flex-center flex-col" onSubmit={formik.handleSubmit}>
                 <div className="form-item flex flex-col space-y-2">

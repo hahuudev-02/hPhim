@@ -80,7 +80,7 @@ export const uploatMovie = async (navigate, data) => {
                 chapMp4s: dataMovie.chapMp4s,
             };
         });
-        const resMovie = await request.post('/movies', dataMovie);
+        await request.post('/movies', dataMovie);
         navigate('/');
     } catch (error) {
         console.log(error);

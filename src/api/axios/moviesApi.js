@@ -6,10 +6,10 @@ import {
     getMovieBySlugError,
     getMovieBySlugStart,
     getMovieBySlugSucces,
-    getAmoutMovieSucces
+    getAmoutMovieSucces,
 } from '~/redux/moviesReducer';
 
-export const getFullMovies = async ({ dispatch, genre = null, page= 1, limit = null }) => {
+export const getFullMovies = async ({ dispatch, genre = null, page = 1, limit = null }) => {
     dispatch(getfullMoviesStart());
     try {
         const res = await request.get('/movies', {
@@ -25,7 +25,7 @@ export const getFullMovies = async ({ dispatch, genre = null, page= 1, limit = n
     }
 };
 
-export const getAmoutMovie = async({dispatch, genre = null}) => {
+export const getAmoutMovie = async ({ dispatch, genre = null }) => {
     try {
         const res = await request.get('/movies', {
             params: {
@@ -36,7 +36,7 @@ export const getAmoutMovie = async({dispatch, genre = null}) => {
     } catch (error) {
         // dispatch(getfullMoviesError());
     }
-}
+};
 
 export const getMovieBySlug = async (slug, dispatch) => {
     dispatch(getMovieBySlugStart());
@@ -50,7 +50,7 @@ export const getMovieBySlug = async (slug, dispatch) => {
 
 export const uploatMovie = async (navigate, data) => {
     try {
-        const { name, arrLinks, category, mainContent } = data;
+        const { name, arrLinks, category, mainContent, userId } = data;
         const dataMp4s = await arrLinks.map((arrLink, index) => {
             return {
                 name: name,
@@ -78,6 +78,7 @@ export const uploatMovie = async (navigate, data) => {
                 genre: category,
                 content: mainContent,
                 chapMp4s: dataMovie.chapMp4s,
+                userId,
             };
         });
         await request.post('/movies', dataMovie);
@@ -85,4 +86,26 @@ export const uploatMovie = async (navigate, data) => {
     } catch (error) {
         console.log(error);
     }
+};
+
+export const upDateMovie = async (navigate, slug, data) => {
+    const { oldName, name, arrLinks, category, mainContent } = data;
+    const dataMp4s = await arrLinks.map((arrLink, index) => {
+        return {
+            name: oldName,
+            mp4Link: arrLink,
+            chapter: `tap ${index + 1}`,
+        };
+    });
+    const resChapMp4s = await request.put(`/chapmp4s/${slug}`, dataMp4s);
+    const dataMovie = {
+        id: data.id,
+        name: name,
+        arrayLinks: resChapMp4s.data,
+        conten: mainContent,
+        genre: category,
+    };
+
+    const res = await request.put('/movies', dataMovie);
+    navigate('/');
 };

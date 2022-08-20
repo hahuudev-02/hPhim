@@ -22,10 +22,10 @@ module.exports = {
                 18: "72px",
             },
             maxWidth: {
-                screen: "1220px",
+                screen: "1222px",
                 wSearchSm: "384px",
-                wSearchLg: "760px",
-                wSearchMd: "550px",
+                wSearchLg: "764px",
+                wSearchMd: "554px",
             },
             animation: {
                 slideIn: "slideIn 0.5s linear",

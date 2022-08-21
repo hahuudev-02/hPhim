@@ -177,17 +177,17 @@ table > tbody > tr {
         }
     }
 }
-//  table > tbody {
-//     @mixin tr($n) {
-//         &:nth-child(#2$n + 1) {
-//             @apply bg-yellow;
-//         }
-//     }
-// }
-// table > tbody {
-//     tr {
-//         &:nth-child(2n) {
-//             @apply bg-[#9400D3];
-//         }
-//     }
-// }
+table > tbody {
+    tr {
+        &:nth-child(2n + 1) {
+            @apply bg-yellow;
+        }
+    }
+}
+table > tbody {
+    tr {
+        &:nth-child(2n) {
+            @apply bg-[#9400D3];
+        }
+    }
+}

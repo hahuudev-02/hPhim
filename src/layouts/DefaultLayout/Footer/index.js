@@ -6,7 +6,7 @@ import { FacebookOutlined, YoutubeOutlined } from '@ant-design/icons';
 
 export default function Footer() {
     return (
-        <footer className="bg-footer-bg">
+        <footer className="bg-footer-bg px-4 lg:px-2">
             <div className="max-w-screen mx-auto py-[100px] grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <section>
                     <div className="flex item-center">

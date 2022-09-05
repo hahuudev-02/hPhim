@@ -14,7 +14,6 @@ const moviesSlice = createSlice({
             isError: false,
         },
         uploatMovie: {
-            currentMovies: null,
             isLoading: false,
             isError: false,
         },
@@ -55,7 +54,6 @@ const moviesSlice = createSlice({
         },
         uploatMovieSucces: (state, actions) => {
             state.uploatMovie.isLoading = false;
-            state.uploatMovie.currentMovies = actions.payload;
             state.uploatMovie.isError = false;
         },
         uploatMovieError: (state) => {

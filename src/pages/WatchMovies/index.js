@@ -73,16 +73,16 @@ export default function WatchMovies() {
                                 ))}
                         </div>
                     </div>
-                    <div className="h-14 w-full bg-yellow-500">Chiếu độc quyền trên website Hà Hữu</div>
+                    <div className="h-14 w-full bg-yellow-500 text-white">Chiếu độc quyền trên website Hà Hữu</div>
                 </div>
 
                 {/* SideBar */}
-                <div className="side-bar w-full bg-red-300 relative overflow-hidden h-[399px]">
+                <div className="side-bar w-full max-h-[700px] bg-[#666] relative overflow-hidden">
                     <SideBar />
                 </div>
             </div>
 
-            <div className="">hiii</div>
+            {/* <div className="">hiii</div> */}
         </div>
     );
 }

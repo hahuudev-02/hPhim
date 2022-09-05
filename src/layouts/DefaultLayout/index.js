@@ -3,13 +3,20 @@ import Header from './Header';
 import Footer from './Footer';
 import SearchInput from '../../components/SearchInput';
 import { useLocation } from 'react-router';
+import { ToastContainer, toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 export default function DefaultLayout({ searchLayout = true, layout = true, children }) {
     const location = useLocation();
+    const isLoading = useSelector((state) => state.movies?.uploatMovie.isLoading);
+    if (isLoading) {
+        toast('Wow so easy!');
+    }
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [location]);
+
 
     return (
         <div className="relative">
@@ -28,6 +35,7 @@ export default function DefaultLayout({ searchLayout = true, layout = true, chil
             ) : (
                 <>{children}</>
             )}
+            <ToastContainer />
         </div>
     );
 }

@@ -5,7 +5,6 @@ import SliderMovies from './Slider';
 import Loading from '~/components/Loading';
 import MovieItem from '~/components/MovieItem';
 import { getFullMovies, getAmoutMovie } from '~/api/axios/moviesApi';
-import Paging from '~/components/Paging';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -27,7 +26,7 @@ export default function Home() {
         getAmoutMovie(dispatch);
     }, []);
 
-    const top5Movies = movies?.slice(0, 5) ;
+    const top5Movies = movies?.slice(0, 5);
     return (
         <div className="">
             <div className="slider">
@@ -47,15 +46,12 @@ export default function Home() {
                 )}
             </div>
 
-            {/* <div className="paging mt-12">
-                <Paging />
-            </div> */}
-            <div>
+            {/* <div>
                 <button onClick={notify} className="text-white">
                     Notify!
                 </button>
                 <ToastContainer />
-            </div>
+            </div> */}
         </div>
     );
 }

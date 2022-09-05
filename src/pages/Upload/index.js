@@ -2,15 +2,19 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import InputCreate from '~/components/InputCreate';
 import { uploatMovie } from '~/api/axios/moviesApi';
 
 export default function Upload() {
-    const userId = useSelector((state) => state.auth.Userlogin?.currentUser._id);
     const [openMovieSeries, setOpenMovieSeries] = useState(false);
+
+    const userId = useSelector((state) => state.auth.Userlogin?.currentUser._id);
+
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const formik = useFormik({
         initialValues: {
             name: '',
@@ -26,7 +30,7 @@ export default function Upload() {
         onSubmit: (values) => {
             const { name, category, mainContent, linkMovies } = values;
             const arrLinks = linkMovies.map((linkMovie) => linkMovie.trim());
-            uploatMovie(navigate, { name, category, mainContent, arrLinks, userId });
+            uploatMovie(dispatch, navigate, { name, category, mainContent, arrLinks, userId });
         },
     });
     const handleMovie = () => {

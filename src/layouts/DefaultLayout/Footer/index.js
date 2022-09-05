@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import FooterItem from './FooterItem';
 
-import { FacebookOutlined, YoutubeOutlined } from '@ant-design/icons';
+import { FacebookOutlined, YoutubeOutlined, GithubOutlined } from '@ant-design/icons';
+import icon from '~/api/image/logo.png';
 
 export default function Footer() {
     return (
@@ -11,11 +12,7 @@ export default function Footer() {
                 <section>
                     <div className="flex item-center">
                         <a href="http://hahuudev.online">
-                            <img
-                                src="https://static.fullstack.edu.vn/static/media/f8-icon.18cd71cfcfa33566a22b.png"
-                                alt=""
-                                className="w-11"
-                            />
+                            <img src={icon} width="120" className="mt-3" />
                         </a>
                         <h3 className="ml-4 text-white font-semibold text-xl">
                             Xem mọi thể loại phim tại web Hphim của Hữu
@@ -57,7 +54,7 @@ export default function Footer() {
                             />
                         </li>
                         <li>
-                            <FooterItem title={<FacebookOutlined className="text-2xl flex" />} content="" link="/" />
+                            <FooterItem title={<GithubOutlined className="text-2xl flex" />} content="GitHub" link="/" />
                         </li>
                     </ul>
                 </section>

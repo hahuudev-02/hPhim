@@ -177,17 +177,15 @@ table > tbody > tr {
         }
     }
 }
-table > tbody {
-    tr {
-        &:nth-child(2n + 1) {
-            @apply bg-yellow;
-        }
+
+.movie-item {
+    &:nth-child(2n + 1) {
+        background-color: rgb(96, 185, 36);
     }
 }
-table > tbody {
-    tr {
-        &:nth-child(2n) {
-            @apply bg-[#9400D3];
-        }
+
+.movie-item {
+    &:nth-child(2n) {
+        background-color: #9400d3;
     }
 }

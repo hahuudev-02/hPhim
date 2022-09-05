@@ -1,13 +1,19 @@
 import { UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
-import { getAmoutMovie } from '~/api/axios/moviesApi';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getFullUser, getUserByEmail } from '~/api/axios/userApi';
+import SweetAlert2 from 'react-sweetalert2';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { getAmoutMovie, deleteMovie } from '~/api/axios/moviesApi';
+import { getFullUser } from '~/api/axios/userApi';
 
 export default function Admin() {
+    const [render, setRender] = useState(false);
     const [users, setUsers] = useState([]);
     const [detailUser, setDetailUser] = useState([]);
+    const [swalProps, setSwalProps] = useState({});
 
     const dispatch = useDispatch();
 
@@ -20,9 +26,31 @@ export default function Admin() {
             setUsers(result);
             setDetailUser(result[0]);
         });
-        getAmoutMovie({dispatch});
-    }, []);
+        getAmoutMovie({ dispatch });
+    }, [render]);
 
+    const handleDelete = ( name) => {
+        toast('Delete SuccessFully !!');
+
+        setSwalProps({
+            show: true,
+            title: `<div>Bạn chắn chắn muốn xóa <span class="text-red-500">${name}</span>?</div>`,
+            text: 'Mời lựa chọn',
+            showConfirmButton: true,
+            confirmButtonText: 'Yes ạ',
+            showCancelButton: true,
+            cancelButtonText: 'Đóng',
+            // background: "red"+,
+        });
+    };
+
+    const handleConfirm = async (result, id) => {
+        const res = await deleteMovie(id);
+        setRender(!render);
+        if (res) {
+            // toast('Delete SuccessFully !!');
+        }
+    };
     return (
         <div className="">
             <h2 className="admin text-2xl text-white font-bont">Admin: {nameAdmin}</h2>
@@ -77,15 +105,20 @@ export default function Admin() {
                     </thead>
                     <tbody>
                         {users?.map((user, index) => (
-                            <tr className="" key={user._id}>
+                            <tr className="movie-item" key={user._id}>
                                 <td>{index + 1}</td>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>{user.moviesId.length}</td>
                                 <td>{user.createdAt.split('T')[0]}</td>
                                 <td>
-                                    <button className="">Xóa</button>
-                                    <button className="ml-2" onClick={() => setDetailUser(user)}>Detail</button>
+                                    <button className="text-white hover:text-red-500">Xóa</button>
+                                    <button
+                                        className="ml-4 text-white hover:text-red-500"
+                                        onClick={() => setDetailUser(user)}
+                                    >
+                                        Detail
+                                    </button>
                                 </td>
                             </tr>
                         ))}
@@ -109,17 +142,32 @@ export default function Admin() {
                     </thead>
                     <tbody>
                         {detailUser.moviesId?.map((movie, index) => (
-                            <tr className=" min-h-[60px]" key={movie._id}>
-                                <td>{index+1}</td>
+                            <tr className="movie-item min-h-[60px]" key={movie._id}>
+                                <td>{index + 1}</td>
                                 <td>{movie.name}</td>
                                 <td>{movie.chapMp4s.length}</td>
-                                <td>1961</td>
-                                <td>1961</td>
+                                <td>{movie.createdAt.split('T')[0]}</td>
+                                <td>{movie.updatedAt.split('T')[0]}</td>
                                 <td className="flex-center">
-                                    <Link to={`/update/${movie.slug}`} className="">
+                                    <Link to={`/update/${movie.slug}`} className="text-white hover:text-red-500">
                                         Sửa
                                     </Link>
-                                    <button className="ml-2">Xóa</button>
+                                    <button
+                                        className="ml-4 text-white hover:text-red-500"
+                                        onClick={() => handleDelete(movie.name)}
+                                    >
+                                        Xóa
+                                    </button>
+                                    <SweetAlert2
+                                        {...swalProps}
+                                        didClose={() => {
+                                            setSwalProps();
+                                        }}
+                                        onConfirm={(result) => {
+                                            handleConfirm(result, movie._id);
+                                        }}
+                                    />
+                                    <ToastContainer autoClose={2000} type="success" />
                                 </td>
                             </tr>
                         ))}

@@ -6,6 +6,9 @@ import {
     getMovieBySlugError,
     getMovieBySlugStart,
     getMovieBySlugSucces,
+    uploatMovieStart,
+    uploatMovieSucces,
+    uploatMovieError,
     getAmoutMovieSucces,
 } from '~/redux/moviesReducer';
 
@@ -48,7 +51,8 @@ export const getMovieBySlug = async (slug, dispatch) => {
     }
 };
 
-export const uploatMovie = async (navigate, data) => {
+export const uploatMovie = async (dispatch, navigate, data) => {
+    dispatch(uploatMovieStart());
     try {
         const { name, arrLinks, category, mainContent, userId } = data;
         const dataMp4s = await arrLinks.map((arrLink, index) => {
@@ -82,9 +86,11 @@ export const uploatMovie = async (navigate, data) => {
             };
         });
         await request.post('/movies', dataMovie);
+        dispatch(uploatMovieSucces());
         navigate('/');
     } catch (error) {
         console.log(error);
+        dispatch(uploatMovieError(error));
     }
 };
 
@@ -97,15 +103,24 @@ export const upDateMovie = async (navigate, slug, data) => {
             chapter: `tap ${index + 1}`,
         };
     });
-    const resChapMp4s = await request.put(`/chapmp4s/${slug}`, dataMp4s);
-    const dataMovie = {
-        id: data.id,
-        name: name,
-        arrayLinks: resChapMp4s.data,
-        conten: mainContent,
-        genre: category,
-    };
 
-    const res = await request.put('/movies', dataMovie);
-    navigate('/');
+    console.log(dataMp4s)
+    const resChapMp4s = await request.put(`/chapmp4s/${slug}`, dataMp4s);
+    console.log(resChapMp4s.data)
+    // console.log(resChapMp4s);
+    // const dataMovie = {
+    //     id: data.id,
+    //     name: name,
+    //     arrayLinks: resChapMp4s.data,
+    //     conten: mainContent,
+    //     genre: category,
+    // };
+
+    // const res = await request.put('/movies', dataMovie);
+    // navigate('/');
+};
+
+export const deleteMovie = async (id) => {
+    const res = await request.delete(`/movies?id=${id}`);
+    return res.data;
 };

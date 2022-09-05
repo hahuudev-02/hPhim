@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import { upDateMovie, getMovieBySlug } from '~/api/axios/moviesApi';
@@ -20,7 +20,7 @@ export default function Update() {
 
     const formik = {
         initialValues: {
-            name: movieUpdate?.name,
+            name: movieUpdate.name,
             category: movieUpdate?.genre,
             mainContent: movieUpdate?.content,
             linkMovies: linkMovieUpdates,
@@ -50,14 +50,13 @@ export default function Update() {
         <div className="flex flex-col items-center">
             <h4 className="text-2xl text-white">Uploat phim</h4>
 
-            <Formik {...formik}>
+            <Formik enableReinitialize={true} {...formik}>
                 {({ values }) => {
-                    // console.log(values.linkMovies);
                     return (
                         <Form className="flex-center flex-col">
                             <div className="form-item flex flex-col space-y-2">
                                 <label htmlFor="name" className="text-xl font-semibold text-yellow">
-                                    Tên phim
+                                    Tên phim {console.log(values)}
                                 </label>
                                 <Field
                                     type="text"
@@ -102,7 +101,6 @@ export default function Update() {
                                 <FieldArray
                                     name="linkMovies"
                                     render={(arrayHelpers) => {
-                                        // console.log(arrayHelpers);
                                         return (
                                             <div>
                                                 {values.linkMovies && values.linkMovies.length > 0 ? (

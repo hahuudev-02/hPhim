@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Tippy from '@tippyjs/react/headless';
 import { BellOutlined, BarsOutlined, CloudUploadOutlined } from '@ant-design/icons';
 
@@ -8,6 +8,8 @@ import { routes } from '~/routers';
 import InfoUser from './InfoUser';
 import Notify from './Notify';
 import icon from '~/api/image/logo.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Header() {
     const [activeNotify, setActiveNotify] = useState(false);
@@ -16,6 +18,8 @@ export default function Header() {
     const user = useSelector((state) => state.auth.Userlogin?.currentUser);
 
     const navbar = useRef();
+
+    const notify = () => toast('Chức năng chưa phát triển!');
 
     const handleNavBar = () => {
         navbar.current.classList.toggle('hidden');
@@ -26,7 +30,7 @@ export default function Header() {
             <div className="max-w-screen h-full mx-auto flex-between space-x-4 relative">
                 <div className="w-[180px] lg:w-[280px]">
                     <Link to="/" className="navbar-logo hidden md:block">
-                        <img src={icon}/>
+                        <img src={icon} width="120" className="mt-3" />
                     </Link>
 
                     <BarsOutlined className="text-2xl text-white md:hidden" onClick={handleNavBar} />
@@ -115,7 +119,7 @@ export default function Header() {
                             </div>
                             <div className="notfy ">
                                 <Tippy
-                                    visible={activeNotify}
+                                    visible={false}
                                     interactive
                                     zIndex={99}
                                     onClickOutside={() => setActiveNotify(false)}
@@ -125,8 +129,8 @@ export default function Header() {
                                         </div>
                                     )}
                                 >
-                                    <div className="" onClick={() => setActiveNotify(!activeNotify)}>
-                                        <BellOutlined className="text-2xl text-white" />
+                                    <div className="" onClick={() => setActiveNotify(!activeNotify)} onClick={notify}>
+                                        <BellOutlined className="text-2xl text-white cursor-pointer" />
                                     </div>
                                 </Tippy>
                             </div>

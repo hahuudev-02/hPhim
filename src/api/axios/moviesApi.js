@@ -72,7 +72,12 @@ export const uploatMovie = async (dispatch, navigate, data) => {
             chapMp4s: [],
         };
         await resChapMp4s.data.forEach((resChapMp4) => {
-            const idChapMovie = resChapMp4.mp4Link.slice(resChapMp4.mp4Link.lastIndexOf('/') + 1);
+            let idChapMovie = null;
+            if (resChapMp4.mp4Link.indexOf('=') === -1) {
+                idChapMovie = resChapMp4.mp4Link.slice(resChapMp4.mp4Link.lastIndexOf('/') + 1);
+            } else {
+                idChapMovie = resChapMp4.mp4Link.slice(resChapMp4.mp4Link.lastIndexOf('=') + 1);
+            }
             const img_p = `https://img.youtube.com/vi/${idChapMovie}/maxresdefault.jpg`;
             dataMovie.chapMp4s.push(resChapMp4._id);
 
@@ -104,9 +109,9 @@ export const upDateMovie = async (navigate, slug, data) => {
         };
     });
 
-    console.log(dataMp4s)
+    console.log(dataMp4s);
     const resChapMp4s = await request.put(`/chapmp4s/${slug}`, dataMp4s);
-    console.log(resChapMp4s.data)
+    console.log(resChapMp4s.data);
     // console.log(resChapMp4s);
     // const dataMovie = {
     //     id: data.id,

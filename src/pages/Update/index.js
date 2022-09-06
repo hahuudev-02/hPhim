@@ -56,7 +56,7 @@ export default function Update() {
                         <Form className="flex-center flex-col">
                             <div className="form-item flex flex-col space-y-2">
                                 <label htmlFor="name" className="text-xl font-semibold text-yellow">
-                                    Tên phim {console.log(values)}
+                                    Tên phim
                                 </label>
                                 <Field
                                     type="text"

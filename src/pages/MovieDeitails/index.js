@@ -41,7 +41,7 @@ function MovieDeitails() {
                         </div>
                     </header>
 
-                    <div className="conten mt-5 text-white text-lg">{movieItem.content}</div>
+                    <div className="conten mt-5 text-white text-lg">{movieItem?.content}</div>
                 </>
             )}
         </div>

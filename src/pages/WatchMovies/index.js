@@ -42,7 +42,7 @@ export default function WatchMovies() {
                 </div>
             </div>
 
-            <div className="watch-movie mt-20 grid grid-cols-[1fr,320px] gap-6">
+            <div className="watch-movie mt-20 grid md:grid-cols-[1fr,320px] gap-6">
                 {/* Movie */}
                 <div className="">
                     {/* Video  */}
@@ -77,7 +77,7 @@ export default function WatchMovies() {
                 </div>
 
                 {/* SideBar */}
-                <div className="side-bar w-full max-h-[700px] bg-[#666] relative overflow-hidden">
+                <div className="side-bar w-full max-h-[700px] bg-[#666] relative overflow-hidden hidden md:block">
                     <SideBar />
                 </div>
             </div>

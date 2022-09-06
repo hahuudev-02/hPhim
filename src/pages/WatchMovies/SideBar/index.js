@@ -6,7 +6,6 @@ import MovieItem from 'components/MovieItem';
 
 function SideBar() {
     const movies = useSelector((state) => state.movies.getfullMovies?.currentMovies);
-    console.log(movies);
     return (
         <div className="h-full overflow-y-scroll">
             <SearchInput width={90} placeholder="Search" />

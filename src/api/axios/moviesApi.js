@@ -109,20 +109,17 @@ export const upDateMovie = async (navigate, slug, data) => {
         };
     });
 
-    console.log(dataMp4s);
     const resChapMp4s = await request.put(`/chapmp4s/${slug}`, dataMp4s);
-    console.log(resChapMp4s.data);
-    // console.log(resChapMp4s);
-    // const dataMovie = {
-    //     id: data.id,
-    //     name: name,
-    //     arrayLinks: resChapMp4s.data,
-    //     conten: mainContent,
-    //     genre: category,
-    // };
+    const dataMovie = {
+        id: data.id,
+        name: name,
+        arrayLinks: resChapMp4s.data,
+        conten: mainContent,
+        genre: category,
+    };
 
-    // const res = await request.put('/movies', dataMovie);
-    // navigate('/');
+    await request.put('/movies', dataMovie);
+    navigate('/');
 };
 
 export const deleteMovie = async (id) => {

@@ -10,7 +10,7 @@ import { uploatMovie } from '~/api/axios/moviesApi';
 export default function Upload() {
     const [openMovieSeries, setOpenMovieSeries] = useState(false);
 
-    const userId = useSelector((state) => state.auth.currentUser.Userlogin?.currentUser._id);
+    const userId = useSelector((state) => state.currentUser.auth.Userlogin?.currentUser._id);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();

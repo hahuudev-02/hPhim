@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SweetAlert2 from 'react-sweetalert2';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-import { getAmoutMovie, deleteMovie } from '~/api/axios/moviesApi';
+import { deleteMovie, getAmoutMovie } from '~/api/axios/moviesApi';
 import { getFullUser } from '~/api/axios/userApi';
+
 
 export default function Admin() {
     const [render, setRender] = useState(false);
@@ -17,8 +17,8 @@ export default function Admin() {
 
     const dispatch = useDispatch();
 
-    const token = useSelector((state) => state.auth.token);
-    const nameAdmin = useSelector((state) => state.auth.Userlogin.currentUser.name);
+    const token = useSelector((state) => state.currentUser.auth.token);
+    const nameAdmin = useSelector((state) => state.currentUser.auth.Userlogin.currentUser.name);
     const amoutMovie = useSelector((state) => state.movies.getAmountMovie);
 
     useEffect(() => {
@@ -27,13 +27,12 @@ export default function Admin() {
             setDetailUser(result[0]);
         });
         getAmoutMovie({ dispatch });
-    }, [render]);
+    }, [render, dispatch, token]);
 
-    const handleDelete = ( name) => {
-        toast('Delete SuccessFully !!');
-
+    const handleDelete = async (name, id) => {
+        console.log(id);
         setSwalProps({
-            show: true,
+            show: 'j',
             title: `<div>Bạn chắn chắn muốn xóa <span class="text-red-500">${name}</span>?</div>`,
             text: 'Mời lựa chọn',
             showConfirmButton: true,
@@ -42,15 +41,15 @@ export default function Admin() {
             cancelButtonText: 'Đóng',
             // background: "red"+,
         });
+
+        await deleteMovie(id);
+        toast('Delete SuccessFully !!');
+    };
+    const handleConfirm = async (id) => {
+        console.log(id);
+        setRender(!render);
     };
 
-    const handleConfirm = async (result, id) => {
-        const res = await deleteMovie(id);
-        setRender(!render);
-        if (res) {
-            // toast('Delete SuccessFully !!');
-        }
-    };
     return (
         <div className="">
             <h2 className="admin text-2xl text-white font-bont">Admin: {nameAdmin}</h2>
@@ -151,22 +150,22 @@ export default function Admin() {
                                 <td className="flex-center">
                                     <Link to={`/update/${movie.slug}`} className="text-white hover:text-red-500">
                                         Sửa
-                                    </Link>
-                                    <button
-                                        className="ml-4 text-white hover:text-red-500"
-                                        onClick={() => handleDelete(movie.name)}
-                                    >
-                                        Xóa
-                                    </button>
+                                    </Link>{' '}
                                     <SweetAlert2
                                         {...swalProps}
                                         didClose={() => {
                                             setSwalProps();
                                         }}
-                                        onConfirm={(result) => {
-                                            handleConfirm(result, movie._id);
+                                        onConfirm={() => {
+                                            handleConfirm(movie._id);
                                         }}
                                     />
+                                    <button
+                                        className="ml-4 text-white hover:text-red-500"
+                                        onClick={() => handleDelete(movie.name, movie._id)}
+                                    >
+                                        Xóa
+                                    </button>
                                     <ToastContainer autoClose={2000} type="success" />
                                 </td>
                             </tr>

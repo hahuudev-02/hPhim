@@ -1,7 +1,7 @@
-import React, { memo } from 'react';
 import PropTy3es from 'prop-types';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '~/api/firebase/login.js';
 
 function InfoUser({ user }) {
@@ -46,18 +46,8 @@ function InfoUser({ user }) {
                         Đăng phim
                     </Link>
                 </li>
-                <li>
-                    <Link to="" className="pt-3 text-info-color font-normal hover:text-[#666]">
-                        Phim của tôi
-                    </Link>
-                </li>
             </ul>
             <ul className="mt-3 pl-2 border border-transparent border-t-dark-gray ">
-                <li>
-                    <Link to="" className="pt-3 text-info-color font-normal hover:text-[#666]">
-                        Cài đặt
-                    </Link>
-                </li>
                 <li>
                     <button className="pt-3 text-info-color font-normal hover:text-[#666]" onClick={handleLogout}>
                         Logout

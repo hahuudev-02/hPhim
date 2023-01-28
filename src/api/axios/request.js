@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const urlApi =  'https://hhphim.herokuapp.com/api';
+const urlApi =  'https://hphim.onrender.com/api';
 const urlApiLocal =  'http://localhost:8017/api';
 
 const request = axios.create({

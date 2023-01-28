@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
-import * as Yup from 'yup';
-import { upDateMovie, getMovieBySlug } from '~/api/axios/moviesApi';
-
-import { useNavigate, useParams } from 'react-router';
+import { ErrorMessage, Field, FieldArray, Form, Formik } from 'formik';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router';
+import * as Yup from 'yup';
+import { getMovieBySlug, upDateMovie } from '~/api/axios/moviesApi';
+
 
 export default function Update() {
     const dispatch = useDispatch();
@@ -16,11 +16,11 @@ export default function Update() {
 
     useEffect(() => {
         getMovieBySlug(params.slug, dispatch);
-    }, []);
+    }, [dispatch, params]);
 
     const formik = {
         initialValues: {
-            name: movieUpdate.name,
+            name: movieUpdate?.name,
             category: movieUpdate?.genre,
             mainContent: movieUpdate?.content,
             linkMovies: linkMovieUpdates,

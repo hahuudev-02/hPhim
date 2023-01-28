@@ -3,7 +3,6 @@ import { Link, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ReactPlayer from 'react-player';
 
-import { initdata } from '~/api/initdata';
 import SideBar from './SideBar';
 
 import { TagOutlined } from '@ant-design/icons';
@@ -15,18 +14,18 @@ export default function WatchMovies() {
     const params = useParams();
     // Cắt chuỗi :slug
     const indexOf = params.slug.indexOf('tap');
-    const slugMovie = params.slug.substring(0, indexOf - 1);
+    // const slugMovie = params.slug.substring(0, indexOf - 1);
     const slugChap = params.slug.substring(indexOf).replace('-', ' ');
     //
 
     useEffect(() => {
         async function fechApi() {
-            const movieChaps = await movieItem.chapMp4s.find((chapMp4) => chapMp4.chapter == slugChap);
+            const movieChaps = await movieItem.chapMp4s.find((chapMp4) => chapMp4.chapter === slugChap);
             setMovieChap(movieChaps);
         }
 
         fechApi();
-    }, [slugChap]);
+    }, [slugChap, movieItem]);
     return (
         <div className="">
             <div className="grid grid-cols-[1.2fr,2fr] gap-6">
@@ -77,7 +76,7 @@ export default function WatchMovies() {
                 </div>
 
                 {/* SideBar */}
-                <div className="side-bar w-full max-h-[700px] bg-[#666] relative overflow-hidden hidden md:block">
+                <div className="side-bar w-full max-h-[700px] bg-[#b2be49] rounded-sm relative overflow-hidden hidden md:block">
                     <SideBar />
                 </div>
             </div>

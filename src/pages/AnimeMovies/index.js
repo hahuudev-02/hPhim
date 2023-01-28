@@ -15,11 +15,11 @@ export default function AnimeMovies() {
 
     useEffect(() => {
         getFullMovies({ dispatch, genre: 'anime', page: searchParams.get('page'), limit: 6});
-    }, [searchParams.get('page')]);
+    }, [searchParams, dispatch]);
 
     useEffect(() => {
         getAmoutMovie({dispatch, genre: 'anime'});
-    }, []);
+    }, [dispatch]);
     return (
         <div className="">
             <div className="">

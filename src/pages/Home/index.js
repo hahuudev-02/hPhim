@@ -6,13 +6,9 @@ import Loading from '~/components/Loading';
 import MovieItem from '~/components/MovieItem';
 import { getFullMovies, getAmoutMovie } from '~/api/axios/moviesApi';
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useSearchParams } from 'react-router-dom';
 
 export default function Home() {
-    const notify = () => toast('Wow so easy!');
-
     const movies = useSelector((state) => state.movies.getfullMovies?.currentMovies);
     const isLoading = useSelector((state) => state.movies.getfullMovies?.isLoading);
     const dispatch = useDispatch();
@@ -20,11 +16,11 @@ export default function Home() {
 
     useEffect(() => {
         getFullMovies({ dispatch, page: searchParams.get('page') });
-    }, [searchParams.get('page')]);
+    }, [dispatch, searchParams]);
 
     useEffect(() => {
         getAmoutMovie(dispatch);
-    }, []);
+    }, [dispatch]);
 
     const top5Movies = movies?.slice(0, 5);
     return (

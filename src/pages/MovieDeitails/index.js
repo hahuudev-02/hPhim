@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
 import { getMovieBySlug } from '~/api/axios/moviesApi';
 
 import { TagOutlined } from '@ant-design/icons';
+import { sortCategory } from 'utilities';
 import Loading from '~/components/Loading';
 
 function MovieDeitails() {
@@ -13,8 +14,7 @@ function MovieDeitails() {
     const isLoading = useSelector((state) => state.movies.getMovieBySlug.isLoading);
     useEffect(() => {
         getMovieBySlug(params.slug, dispatch);
-    }, [params.slug]);
-
+    }, [params.slug, dispatch]);
     return (
         <div>
             {isLoading ? (
@@ -25,13 +25,13 @@ function MovieDeitails() {
                         <img src={movieItem?.img_p} alt="" className="" />
                         <div className="info">
                             <h3 className="text-2xl text-white font-bold">{movieItem?.name}</h3>
-                            <Link to="/" className="text-white flex items-center my-4">
+                            <Link to={`/the-loai/${sortCategory(movieItem?.genre)?.slugGenre}`} className="text-white flex items-center my-4">
                                 <TagOutlined rotate="270" className="text-[#f1b722] mr-2" />
-                                Phim tình cảm
+                                {sortCategory(movieItem?.genre)?.genre}
                             </Link>
 
                             <div className="flex">
-                                <Link to="/" className="btn-trailer">
+                                <Link to={`/p/${movieItem?.slug}-tap-1`} className="btn-trailer">
                                     Trailer
                                 </Link>
                                 <Link to={`/p/${movieItem?.slug}-tap-1`} className="btn-play-movie">

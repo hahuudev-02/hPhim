@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Tippy from '@tippyjs/react/headless';
@@ -6,34 +6,38 @@ import { BellOutlined, BarsOutlined, CloudUploadOutlined } from '@ant-design/ico
 
 import { routes } from '~/routers';
 import InfoUser from './InfoUser';
-import Notify from './Notify';
 import icon from '~/api/image/logo.png';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from 'react';
 
 export default function Header() {
     const [activeNotify, setActiveNotify] = useState(false);
     const [activeInfoUser, setActiveInfoUser] = useState(false);
 
-    const user = useSelector((state) => state.auth.Userlogin?.currentUser);
+    const user = useSelector((state) => state.currentUser.auth.Userlogin?.currentUser);
 
     const navbar = useRef();
+    const btnNav = useRef();
 
-    const notify = () => toast('Chức năng chưa phát triển!');
-
-    const handleNavBar = () => {
-        navbar.current.classList.toggle('hidden');
-    };
+    useEffect(() => {
+        window.addEventListener('click', () => {
+            if (btnNav.current) {
+                navbar.current?.classList.toggle('hidden');
+                return;
+            }
+            navbar.current?.classList.add('hidden');
+        });
+    }, []);
 
     return (
         <header className="header h-[60px] md:h-[80px] bg-headerBg z-[99] px-4 lg:px-2">
             <div className="max-w-screen h-full mx-auto flex-between space-x-4 relative">
                 <div className="w-[180px] lg:w-[280px]">
                     <Link to="/" className="navbar-logo hidden md:block">
-                        <img src={icon} width="120" className="mt-3" />
+                        <img src={icon} width="120px" alt="" className="mt-3" />
                     </Link>
 
-                    <BarsOutlined className="text-2xl text-white md:hidden" onClick={handleNavBar} />
+                    <BarsOutlined className="text-2xl text-white md:hidden" ref={btnNav} />
                 </div>
 
                 <nav className="navbar-menu hidden" ref={navbar}>
@@ -129,7 +133,7 @@ export default function Header() {
                                         </div>
                                     )}
                                 >
-                                    <div className="" onClick={() => setActiveNotify(!activeNotify)} onClick={notify}>
+                                    <div className="" onClick={() => setActiveNotify(!activeNotify)}>
                                         <BellOutlined className="text-2xl text-white cursor-pointer" />
                                     </div>
                                 </Tippy>

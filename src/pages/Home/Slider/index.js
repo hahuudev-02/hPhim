@@ -14,29 +14,29 @@ function SliderMovies({ top5Movies }) {
         speed: 800,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: true,
+        // autoplay: true,
         autoplaySpeed: 5000,
     };
     return (
         <>
-            <h2 className="uppercase text-4xl font-bold text-[#f1b722] my-8">Phim Hot nhất tháng tám</h2>
+            <h2 className="uppercase text-4xl font-bold text-[#f1b722] my-8">Phim Hot nhất hiện nay</h2>
             <Slider {...settings} className="max-w-full mx-10">
                 {top5Movies?.map((movie) => (
                     <div
                         key={movie._id}
-                        className="bg-gradient-to-r from-violet-500 to-fuchsia-500 p-3 rounded-3xl shadow-md"
+                        className="bg-gradient-to-r from-violet-500 to-fuchsia-400 p-3 rounded-3xl shadow-md"
                     >
                         <div className="flex">
                             <div className="flex-1 mr-2">
                                 <h3 className="text-lg text-white uppercase text-center font-semibold">{movie.name}</h3>
-                                <p className="text-yellow">
+                                <p className="text-[#0c0117]">
                                     Thể loại: <span className="text-[#ccc]">Phim hàn quốc</span>{' '}
                                 </p>
-                                <p className="text-yellow">
-                                    Tổng số tập: <span className="">{movie.chapMp4s.length}</span>
+                                <p className="text-[#0c0117]">
+                                    Tổng số tập: <span className="text-[#ccc]">{movie.chapMp4s.length}</span>
                                 </p>
-                                <p className="text-yellow">
-                                    Diễn viên chính: <span className="">Hà Hữu</span>
+                                <p className="text-[#0c0117]">
+                                    Diễn viên chính: <span className="text-[#ccc]">Hà Hữu</span>
                                 </p>
                                 <div className="flex">
                                     <Link to="http://" className="btn-trailer">
@@ -60,12 +60,15 @@ function SliderMovies({ top5Movies }) {
                             </Link> */}
                             <Link to={`p/${movie.slug}-tap-1`} className="flex-1 relative rounded-lg overflow-hidden test">
                                 <PlayCircleOutlined className="icon-play hidden text-white text-3xl absolute z-10 top-[49%] -translate-y-2/4 left-[47%] animate-blur-down" />
+                                <div className="overflow-hidden pt-[56.25%] w-full relative">
+
                                 <LazyLoadImage
                                     src={movie.img_p}
                                     // placeholderSrc="https://phocode.com/wp-content/uploads/2020/10/placeholder-1-1.png"
                                     alt=""
-                                    className="w-full rounded-lg hover:scale-1009 ease-in duration-200"
+                                    className="absolute top-0 left-0 w-full rounded-lg hover:scale-1009 ease-in duration-200"
                                 />
+                                </div>
                             </Link>
                         </div>
                     </div>

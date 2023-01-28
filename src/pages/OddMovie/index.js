@@ -15,11 +15,11 @@ export default function OddMovie() {
 
     useEffect(() => {
         getFullMovies({ dispatch, genre: 'pl', page: searchParams.get('page'), limit: 6 });
-    }, [searchParams.get('page')]);
+    }, [searchParams, dispatch]);
 
     useEffect(() => {
         getAmoutMovie({dispatch, genre: 'pl'});
-    }, []);
+    }, [dispatch]);
     return (
         <div className="">
             <div className="">

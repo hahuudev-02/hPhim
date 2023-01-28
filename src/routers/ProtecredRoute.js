@@ -3,7 +3,7 @@ import { useLocation, Navigate, Outlet } from 'react-router-dom'
 import {useSelector } from 'react-redux';
 
 export default function ProtecredRoute() {
-    const isUser = useSelector((state) => state.auth.Userlogin.currentUser);
+    const isUser = useSelector((state) => state.auth.currentUser.Userlogin.currentUser);
     const location = useLocation()
   return (
     isUser ? <Outlet/> : <Navigate to="/login" state={{from: location}} replace/>

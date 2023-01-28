@@ -1,5 +1,5 @@
-import { configureStore, combineReducers,  } from '@reduxjs/toolkit';
-import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 import authReducer from './authReducer';
@@ -8,8 +8,6 @@ import searchReducer from './searchReducer';
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    movies: moviesReducer,
-    search: searchReducer,
 });
 
 const persistConfig = {
@@ -18,17 +16,13 @@ const persistConfig = {
     storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const currentUser = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-    reducer: persistedReducer,
+    reducer: { currentUser, movies: moviesReducer, search: searchReducer },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-            serializableCheck: false
-            // fix sau
-            // {
-            //     ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-            // },
+            serializableCheck: false,
         }),
 });
 

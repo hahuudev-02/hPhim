@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import FooterItem from './FooterItem';
 
 import { FacebookOutlined, YoutubeOutlined, GithubOutlined } from '@ant-design/icons';
@@ -12,7 +11,7 @@ export default function Footer() {
                 <section>
                     <div className="flex item-center">
                         <a href="http://hahuudev.online">
-                            <img src={icon} width="120" className="mt-3" />
+                            <img src={icon} width="120" alt="" className="mt-3" />
                         </a>
                         <h3 className="ml-4 text-white font-semibold text-xl">
                             Xem mọi thể loại phim tại web Hphim của Hữu
@@ -43,7 +42,7 @@ export default function Footer() {
                             <FooterItem
                                 title={<FacebookOutlined className="text-2xl flex" />}
                                 content="facebook"
-                                link="/"
+                                link="https://www.facebook.com/huu.has.3/"
                             />
                         </li>
                         <li>
@@ -54,7 +53,11 @@ export default function Footer() {
                             />
                         </li>
                         <li>
-                            <FooterItem title={<GithubOutlined className="text-2xl flex" />} content="GitHub" link="/" />
+                            <FooterItem
+                                title={<GithubOutlined className="text-2xl flex" />}
+                                content="GitHub"
+                                link="https://github.com/hahuudev-02"
+                            />
                         </li>
                     </ul>
                 </section>
@@ -69,6 +72,9 @@ export default function Footer() {
                         </li>
                         <li>
                             <FooterItem content="Công việc" link="/" />
+                        </li>
+                        <li>
+                            <FooterItem title="Website mẹ: " content="hahuudev.online" link="https://hahuudev.online" />
                         </li>
                         <li>
                             <FooterItem

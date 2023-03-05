@@ -25,11 +25,11 @@ export default function Home() {
     const top5Movies = movies?.slice(0, 5);
     return (
         <div className="">
-            <div className="slider">
+            <div className="slider min-h-[300px]">
                 <SliderMovies top5Movies={top5Movies} />
             </div>
 
-            <div className="">
+            <div className="min-h-[300px]">
                 <h2 className="uppercase text-4xl font-bold text-[#f1b722] my-8">Phim mới cập nhật</h2>
                 {isLoading ? (
                     <Loading />

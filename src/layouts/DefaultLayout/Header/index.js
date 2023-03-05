@@ -20,13 +20,17 @@ export default function Header() {
     const btnNav = useRef();
 
     useEffect(() => {
-        window.addEventListener('click', () => {
-            if (btnNav.current) {
+        function handleClick(e) {
+            if (btnNav.current.contains(e.target)) {
                 navbar.current?.classList.toggle('hidden');
                 return;
             }
             navbar.current?.classList.add('hidden');
-        });
+        }
+        window.addEventListener('click', handleClick);
+        return () => {
+            window.removeEventListener('click', handleClick);
+        };
     }, []);
 
     return (
@@ -37,7 +41,10 @@ export default function Header() {
                         <img src={icon} width="120px" alt="" className="mt-3" />
                     </Link>
 
-                    <BarsOutlined className="text-2xl text-white md:hidden" ref={btnNav} />
+                    <BarsOutlined
+                        className="text-2xl text-white md:hidden cursor-pointer hover:opacity-70"
+                        ref={btnNav}
+                    />
                 </div>
 
                 <nav className="navbar-menu hidden" ref={navbar}>

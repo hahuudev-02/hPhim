@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# hphim ([Link deploy]: (https://hphim.vercel.app))
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Chú ý: Do api tôi deploy lên cloud Render(free) nên lần đầu tiên truy cập web Render cần đánh thức nên bạn có thể mất từ 2 tới 3 phút để load xong. Chắc chắn tôi sẽ sớm khắc phục nó.
 
-## Available Scripts
+## Mô tả ngắn
 
-In the project directory, you can run:
+-   Đây là dự án tôi tự tay viết sau một tuần tìm hiểu về NodeJs cộng thêm ôn tập các kiến thức về taiwindCss nên các chức năng lẫn giao diện vẫn còn rất sơ sài. Project (cả Fe và Be) được tôi viết trong khoảng hơn 1 tuần
 
-### `npm start`
+## Technologies I use
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Front-end:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    - ReactJs, Redux Toolkit
+    - TailwindCss
+    - Tippy, Toast meassge, Swealert2
+    - Formik, Yup (Validate)
 
-### `npm test`
+### Backend ([Repo]: (https://github.com/hahuudev-02/hPhim-api))
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    - Express(Nodejs)
+    - FireBase
+    - Mongoodb, Mongoose (Databse)
 
-### `npm run build`
+## Project Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    - Login social Google, Facebook
+    - Thêm sửa xóa movie được lấy từ link youtube
+    - Phân trang
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Some pictures of the project
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Home Page
 
-### `npm run eject`
+![Home Page](https://res.cloudinary.com/dssl3epj0/image/upload/v1678028886/project/Screenshot_275_zpftnu.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### Detail movie
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![Detail movie](https://res.cloudinary.com/dssl3epj0/image/upload/v1678028887/project/Screenshot_277_yu1asu.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### Category movie
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![Category movie](https://res.cloudinary.com/dssl3epj0/image/upload/v1678028886/project/Screenshot_276_awjcgg.png)
 
-## Learn More
+#### Watch Movie
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Watch Movie](https://res.cloudinary.com/dssl3epj0/image/upload/v1678028886/project/Screenshot_278_hq0bxk.png)

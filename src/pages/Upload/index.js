@@ -23,8 +23,8 @@ export default function Upload() {
             linkMovies: [],
         },
         validationSchema: Yup.object({
-            name: Yup.string().min(5, 'Phải đủ 5').max(50, 'nhỏ hơn 50').required('bắt buộc'),
-            mainContent: Yup.string().min(5, 'Phải đủ 50').max(1000, 'nhỏ hơn 1000').required('bắt buộc'),
+            name: Yup.string().min(5, 'Phải đủ 5').max(1020, 'nhỏ hơn 1000 chữ').required('bắt buộc'),
+            mainContent: Yup.string().min(5, 'Phải đủ 50').required('bắt buộc'),
             linkMovies: Yup.array().of(Yup.string().min(5, 'Phải đủ 50').required('bắt buộc')).required('bắt buộc'),
         }),
         onSubmit: (values) => {

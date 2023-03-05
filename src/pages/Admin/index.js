@@ -8,7 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { deleteMovie, getAmoutMovie } from '~/api/axios/moviesApi';
 import { getFullUser } from '~/api/axios/userApi';
 
-
 export default function Admin() {
     const [render, setRender] = useState(false);
     const [users, setUsers] = useState([]);
@@ -30,7 +29,6 @@ export default function Admin() {
     }, [render, dispatch, token]);
 
     const handleDelete = async (name, id) => {
-        console.log(id);
         setSwalProps({
             show: 'j',
             title: `<div>Bạn chắn chắn muốn xóa <span class="text-red-500">${name}</span>?</div>`,
@@ -40,6 +38,7 @@ export default function Admin() {
             showCancelButton: true,
             cancelButtonText: 'Đóng',
             // background: "red"+,
+            value: 'hi',
         });
 
         await deleteMovie(id);
@@ -156,7 +155,7 @@ export default function Admin() {
                                         didClose={() => {
                                             setSwalProps();
                                         }}
-                                        onConfirm={() => {
+                                        onConfirm={(e) => {
                                             handleConfirm(movie._id);
                                         }}
                                     />

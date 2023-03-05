@@ -48,7 +48,7 @@ function SliderMovies({ top5Movies }) {
                                 </div>
                                 <div className="">
                                     <span className="text-yellow">Nội dung: </span>
-                                    <p className="inline-block break-words">{movie.content}</p>
+                                    <p className="movie-description inline-block break-words">{movie.content}</p>
                                 </div>
                             </div>
                             {/* <Link to={`p/${movie.slug}-tap-1`} className="flex-1">
@@ -58,16 +58,18 @@ function SliderMovies({ top5Movies }) {
                                     className="rounded-xl"
                                 />
                             </Link> */}
-                            <Link to={`p/${movie.slug}-tap-1`} className="flex-1 relative rounded-lg overflow-hidden test">
+                            <Link
+                                to={`p/${movie.slug}-tap-1`}
+                                className="flex-1 relative rounded-lg overflow-hidden test hidden md:block"
+                            >
                                 <PlayCircleOutlined className="icon-play hidden text-white text-3xl absolute z-10 top-[49%] -translate-y-2/4 left-[47%] animate-blur-down" />
                                 <div className="overflow-hidden pt-[56.25%] w-full relative">
-
-                                <LazyLoadImage
-                                    src={movie.img_p}
-                                    // placeholderSrc="https://phocode.com/wp-content/uploads/2020/10/placeholder-1-1.png"
-                                    alt=""
-                                    className="absolute top-0 left-0 w-full rounded-lg hover:scale-1009 ease-in duration-200"
-                                />
+                                    <LazyLoadImage
+                                        src={movie.img_p}
+                                        // placeholderSrc="https://phocode.com/wp-content/uploads/2020/10/placeholder-1-1.png"
+                                        alt=""
+                                        className="absolute top-0 left-0 w-full rounded-lg hover:scale-1009 ease-in duration-200"
+                                    />
                                 </div>
                             </Link>
                         </div>

@@ -1,6 +1,5 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
-import request from '~/api/axios';
-import { app, analytics } from '~/api/firebase/firebaseConfig';
+import '~/api/firebase/firebaseConfig';
 import { getUserByEmail } from '~/api/axios/userApi';
 
 import { loginStart, loginSuccess, loginError, addToken } from '~/redux/authReducer';
@@ -14,10 +13,10 @@ export const loginWithGG = async (dispatch, navigate) => {
     dispatch(loginStart());
     try {
         const result = await signInWithPopup(auth, provider);
-        const credential = GoogleAuthProvider.credentialFromResult(result);
+         GoogleAuthProvider.credentialFromResult(result);
         const user = result.user;
         const token = user.accessToken;
-        dispatch(addToken(token))
+        dispatch(addToken(token));
         let resUser = await getUserByEmail(user.email);
         if (!resUser) {
             const nickNameUser = '@' + lowCaseName(user.displayName);
@@ -41,11 +40,11 @@ export const loginWithFb = async (dispatch, navigate) => {
     dispatch(loginStart());
     try {
         const result = await signInWithPopup(auth, provider);
-        const credential = FacebookAuthProvider.credentialFromResult(result);
+         FacebookAuthProvider.credentialFromResult(result);
 
         const user = result.user;
         const token = user.accessToken;
-        dispatch(addToken(token))
+        dispatch(addToken(token));
         let resUser = await getUserByEmail(user.email);
         if (!resUser) {
             const nickNameUser = '@' + lowCaseName(user.displayName);

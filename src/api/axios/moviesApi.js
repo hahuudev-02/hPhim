@@ -90,6 +90,7 @@ export const uploatMovie = async (dispatch, navigate, data) => {
                 userId,
             };
         });
+
         await request.post('/movies', dataMovie);
         dispatch(uploatMovieSucces());
         navigate('/');

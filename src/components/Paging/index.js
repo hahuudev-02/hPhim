@@ -1,9 +1,8 @@
-import React, { memo, useState, useEffect, useCallback } from 'react';
-import PropTypes from 'prop-types';
+import { DoubleLeftOutlined, DoubleRightOutlined } from '@ant-design/icons';
+import { memo, useEffect } from 'react';
+import ReactPaginate from 'react-paginate';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { DoubleLeftOutlined, DoubleRightOutlined } from '@ant-design/icons';
-import ReactPaginate from 'react-paginate';
 
 function Paging({ currentItems }) {
     const pageCount = Math.ceil(useSelector((state) => state.movies?.getAmountMovie) / currentItems);
@@ -12,14 +11,14 @@ function Paging({ currentItems }) {
         searchParams.get('page') > pageCount || searchParams.get('page') < 1 ? 0 : searchParams.get('page') - 1;
 
     useEffect(() => {
-        if (searchParams.get('page') == 1) {
+        if (searchParams.get('page') === 1) {
             setSearchParams({ page: '1' });
         }
 
         if (searchParams.get('page') < 1 || searchParams.get('page') > pageCount) {
             setSearchParams({ page: '1' });
         }
-    }, []);
+    }, [pageCount, searchParams, setSearchParams]);
 
     const handlePageChange = (e) => {
         const page = e.selected + 1;

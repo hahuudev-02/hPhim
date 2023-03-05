@@ -75,6 +75,14 @@ body {
     @apply text-red-500;
 }
 
+.movie-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+}
+
 // Slider
 .slick-slider {
     position: relative;
@@ -191,6 +199,6 @@ table > tbody > tr {
     }
 }
 
-span.lazy-load-image-background  {
+span.lazy-load-image-background {
     display: block !important;
 }

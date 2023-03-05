@@ -20,9 +20,9 @@ export default function Login() {
         <Navigate to="/" />
     ) : (
         <div className="flex-center h-[100vh]">
-           
-            <div className="w-[600px] py-4 bg-red-200 flex flex-col justify-center items-center rounded-3xl shadow-2xl">
-                <h2 className='mb-8 text-2xl text-[#057655] font-semibold'>ĐĂNG NHẬP VÀO WEB MOVIE HAHUU</h2>
+            <div className="w-[600px] py-28 bg-red-200 flex flex-col justify-center items-center rounded-3xl shadow-2xl">
+                <h3 className="text-2xl text-red-600 font-semibold mb-2">HPHIM</h3>
+                <h2 className="mb-12 text-3xl text-[#057655] font-semibold">LOGIN IN WEB MOVIE HAHUU</h2>
                 <button
                     className="w-[500px] h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl text-xl text-white font-semibold"
                     onClick={handleLoginGG}
@@ -31,7 +31,7 @@ export default function Login() {
                 </button>
 
                 <button
-                    className="mt-4 w-[500px] h-12 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-3xl text-xl text-white font-semibold"
+                    className="mt-6 w-[500px] h-12 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-3xl text-xl text-white font-semibold"
                     onClick={handleLoginFb}
                 >
                     Login with facebook

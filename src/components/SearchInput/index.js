@@ -10,16 +10,18 @@ import { Link } from 'react-router-dom';
 function SearchInput({ width, placeholder }) {
     const [loading, setLoading] = useState(false);
     const [searchValue, setSearchValue] = useState('');
+    const [activeResult, setActiveResult] = useState(true);
     const [searchResults, setSearchResults] = useState([]);
 
     const searchInputElement = useRef();
+    const searchEl = useRef();
     const debounce = useDebounce(searchValue, 600);
 
     useEffect(() => {
         if (!debounce.trim()) {
             setSearchResults([]);
             return;
-        };
+        }
 
         const fechApi = async () => {
             setLoading(true);
@@ -30,10 +32,26 @@ function SearchInput({ width, placeholder }) {
 
         fechApi();
     }, [debounce]);
+
+    useEffect(() => {
+        function handleClick(e) {
+            if (searchEl.current.contains(e.target)) {
+                setActiveResult(true);
+            } else {
+                setActiveResult(false);
+            }
+        }
+        window.addEventListener('click', handleClick);
+
+        return () => {
+            window.removeEventListener('click', handleClick);
+        };
+    }, []);
+
     return (
-        <div className="relative w-full ">
+        <div className="relative w-full " ref={searchEl}>
             <Tippy
-                visible={searchValue}
+                visible={searchValue && activeResult}
                 interactive
                 placement="bottom"
                 zIndex={99}
@@ -59,7 +77,7 @@ function SearchInput({ width, placeholder }) {
                             </div>
 
                             <ul className="max-h-[420px] overflow-y-auto mt-2">
-                                {debounce && !loading && searchResults.length == 0 ? (
+                                {debounce && !loading && searchResults.length === 0 ? (
                                     <li className="h-12 mb-1.5 hover:bg-red-200 rounded-xl">
                                         Không có kết quả tìm kiếm
                                     </li>

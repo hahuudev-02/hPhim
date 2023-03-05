@@ -1,8 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import SearchInput from '~/components/SearchInput';
-import { useSelector } from 'react-redux';
 import MovieItem from 'components/MovieItem';
+import { useSelector } from 'react-redux';
+import SearchInput from '~/components/SearchInput';
 
 function SideBar() {
     const movies = useSelector((state) => state.movies.getfullMovies?.currentMovies);
